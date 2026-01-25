@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Shield, Heart, Users, CheckCircle, Mail, Phone, MapPin, Globe, X, Linkedin, Twitter } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { LazyImage } from '../components/LazyImage';
 
 const TEAM_MEMBERS = [
   { id: 'amina', name: 'Amina N.', role: 'Programs Director', location: 'Rwanda', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&h=200&fit=crop', bio: 'Amina has over 12 years of experience in humanitarian program management across East and Central Africa.' },
@@ -73,8 +74,13 @@ export const About = () => {
             </div>
           </div>
           <div className="relative">
-            <div className="rounded-[3rem] overflow-hidden shadow-2xl h-[600px] relative z-10">
-              <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=2070&auto=format&fit=crop" alt="Empowerment" className="w-full h-full object-cover" />
+            <div className="rounded-[3rem] overflow-hidden shadow-2xl h-[600px] relative z-10 bg-slate-100">
+              <LazyImage
+                src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=2070&auto=format&fit=crop"
+                alt="Empowerment"
+                className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
+              />
             </div>
             <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-green-500 rounded-[2rem] -z-10 animate-pulse"></div>
             <div className="absolute -top-8 -right-8 w-48 h-48 bg-blue-600 rounded-full -z-10 opacity-20"></div>
@@ -134,7 +140,12 @@ export const About = () => {
             {TEAM_MEMBERS.map((member) => (
               <div key={member.id} className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all group">
                 <div className="h-48 overflow-hidden relative">
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <LazyImage
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    containerClassName="w-full h-full"
+                  />
                   <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[8px] font-black text-white uppercase tracking-widest">{member.location}</div>
                 </div>
                 <div className="p-6 text-center">
@@ -166,7 +177,12 @@ export const About = () => {
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="h-80 md:h-auto overflow-hidden">
-                <img src={selectedMember.image} alt={selectedMember.name} className="w-full h-full object-cover" />
+                <LazyImage
+                  src={selectedMember.image}
+                  alt={selectedMember.name}
+                  className="w-full h-full object-cover"
+                  containerClassName="w-full h-full"
+                />
               </div>
               <div className="p-10 md:p-14 space-y-8 flex flex-col justify-center">
                 <div>

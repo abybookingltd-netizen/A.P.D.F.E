@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Heart, Users, ShieldCheck, Activity, GraduationCap, ChevronLeft } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { LazyImage } from '../components/LazyImage';
 
 const HERO_SLIDES = [
   {
@@ -162,10 +163,11 @@ export const Home = () => {
             </Link>
           </div>
           <div className="relative order-1 lg:order-2">
-            <img
+            <LazyImage
               src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=2070&auto=format&fit=crop"
               alt="Child"
               className="rounded-2xl shadow-2xl w-full h-[500px] object-cover"
+              containerClassName="rounded-2xl shadow-2xl w-full h-[500px]"
             />
             <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl border border-slate-100 hidden sm:block">
               <div className="text-4xl font-extrabold text-blue-600 mb-1">10+</div>
@@ -214,8 +216,13 @@ export const Home = () => {
             ].map((card, idx) => (
               <div key={idx} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
                 <div className="h-64 overflow-hidden relative">
-                  <img src={card.img} alt={card.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className={`absolute top-4 left-4 p-3 rounded-full ${card.color}`}>
+                  <LazyImage
+                    src={card.img}
+                    alt={card.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    containerClassName="w-full h-full"
+                  />
+                  <div className={`absolute top-4 left-4 p-3 rounded-full ${card.color} z-10`}>
                     {card.icon}
                   </div>
                 </div>
@@ -247,10 +254,15 @@ export const Home = () => {
             { tag: "Skills", title: "Women Entrepreneurs", img: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=2069&auto=format&fit=crop" },
             { tag: "Relief", title: "Emergency Food Relief", img: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2031&auto=format&fit=crop" }
           ].map((story, idx) => (
-            <div key={idx} className="relative h-80 rounded-2xl overflow-hidden group cursor-pointer shadow-lg">
-              <img src={story.img} alt={story.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-              <div className="absolute bottom-6 left-6 right-6">
+            <div key={idx} className="relative h-80 rounded-2xl overflow-hidden group cursor-pointer shadow-lg bg-slate-900">
+              <LazyImage
+                src={story.img}
+                alt={story.title}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-40"
+                containerClassName="w-full h-full absolute inset-0"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+              <div className="absolute bottom-6 left-6 right-6 z-20">
                 <span className="inline-block px-3 py-1 bg-blue-600 text-white text-[10px] font-bold uppercase rounded-md mb-3">{story.tag}</span>
                 <h3 className="text-2xl font-bold text-white leading-tight">{story.title}</h3>
                 <p className="text-slate-300 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Working hand-in-hand with locals to create safe spaces.</p>

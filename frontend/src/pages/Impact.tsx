@@ -3,6 +3,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { IMPACT_DATA, TIMELINE_EVENTS } from '../constants';
 import { TrendingUp, MapPin, Users, Heart, Star, FileText, Image as ImageIcon, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { LazyImage } from '../components/LazyImage';
 
 export const Impact = () => {
   const [selectedYear, setSelectedYear] = useState('2024');
@@ -186,7 +187,12 @@ export const Impact = () => {
           ].map((story, i) => (
             <div key={i} className="bg-white rounded-[3rem] overflow-hidden shadow-sm border border-slate-100 group hover:shadow-2xl transition-all">
               <div className="h-64 overflow-hidden">
-                <img src={story.img} alt={story.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <LazyImage
+                  src={story.img}
+                  alt={story.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  containerClassName="w-full h-full"
+                />
               </div>
               <div className="p-10">
                 <div className="flex items-center gap-2 text-blue-600 font-black text-[10px] uppercase tracking-widest mb-4">
@@ -232,10 +238,11 @@ export const Impact = () => {
               className="aspect-square rounded-3xl overflow-hidden group relative border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 cursor-zoom-in"
               onClick={() => setLightboxIndex(i)}
             >
-              <img
+              <LazyImage
                 src={url}
                 alt="Field Work"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                containerClassName="w-full h-full"
               />
               <div className="absolute inset-0 bg-blue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                 <ImageIcon size={32} className="text-white transform scale-50 group-hover:scale-100 transition-transform duration-300" />

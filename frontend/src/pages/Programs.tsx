@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { PROGRAMS } from '../constants';
 import { CheckCircle2, ArrowRight, Heart, Users, Shield, Leaf, GraduationCap, Scale } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { LazyImage } from '../components/LazyImage';
 
 const PROGRAM_ICONS = {
   health: <Heart size={48} className="text-red-500" />,
@@ -40,9 +41,14 @@ export const Programs = () => {
           {PROGRAMS.map((program, idx) => (
             <div key={program.id} id={PROGRAM_IDS[idx]} className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center group">
               <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <div className="rounded-[4rem] overflow-hidden shadow-2xl h-[500px] relative">
-                  <img src={program.image} alt={program.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                <div className="rounded-[4rem] overflow-hidden shadow-2xl h-[500px] relative bg-slate-100">
+                  <LazyImage
+                    src={program.image}
+                    alt={program.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                    containerClassName="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
                   <div className="absolute bottom-10 left-10 flex items-center gap-4">
                     <div className="p-4 bg-white/20 backdrop-blur-md border border-white/20 rounded-3xl">
                       {PROGRAM_ICONS[PROGRAM_IDS[idx] as keyof typeof PROGRAM_ICONS]}
