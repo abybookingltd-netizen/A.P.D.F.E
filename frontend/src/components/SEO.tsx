@@ -23,7 +23,7 @@ export const SEO: React.FC<SEOProps> = ({
     const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
 
     // Construct the full URL if not provided
-    const canonicalUrl = url || `https://apdf-ong.org${location.pathname}`;
+    const canonicalUrl = url || `https://a-p-d-f-e-ngo.onrender.com${location.pathname}`;
 
     return (
         <Helmet>
