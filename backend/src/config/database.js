@@ -1,7 +1,22 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const dialectOptions = {};
+
+if (process.env.NODE_ENV === 'production') {
+    dialectOptions.ssl = {
+        ca: fs.readFileSync(path.join(__dirname, 'ca.pem')),
+        rejectUnauthorized: true,
+    };
+}
 
 const sequelize = new Sequelize(
     process.env.DB_NAME || 'hr_management',
@@ -12,6 +27,7 @@ const sequelize = new Sequelize(
         port: parseInt(process.env.DB_PORT) || 3306,
         dialect: 'mysql',
         logging: process.env.NODE_ENV === 'development' ? console.log : false,
+        dialectOptions: dialectOptions,
         pool: {
             max: 5,
             min: 0,
