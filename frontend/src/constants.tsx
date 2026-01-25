@@ -9,14 +9,14 @@ export const COLORS = {
   accent: '#00AEEF'
 };
 
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 export const SERVER_URL = API_URL.replace('/api', '');
 
 export const getImageUrl = (path: string) => {
   if (!path) return '';
   if (path.startsWith('http')) return path;
   if (path.startsWith('data:')) return path;
-  return `${SERVER_URL}/uploads/${path}`;
+  return `${SERVER_URL}${path}`;
 };
 
 export const TEAM_MEMBERS: TeamMember[] = [

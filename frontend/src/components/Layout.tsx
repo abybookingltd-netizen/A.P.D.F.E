@@ -1,8 +1,9 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Mail, Phone, Menu, X, Facebook, Twitter, Instagram, Heart, User, Calendar, ChevronDown } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
+import { LoadingScreen } from './LoadingScreen';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -280,6 +281,7 @@ const Footer = () => {
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+  const { isLoading } = useData();
   const isDashboard = location.pathname.startsWith('/dashboard');
 
   useEffect(() => {
@@ -306,6 +308,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   return (
     <div className="flex flex-col min-h-screen animate-in fade-in duration-1000">
+      {isLoading && <LoadingScreen />}
       {!isDashboard && <Navbar />}
       <main className="flex-grow">
         {children}

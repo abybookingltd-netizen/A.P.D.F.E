@@ -1,4 +1,4 @@
-import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
@@ -15,16 +15,21 @@ export const SEO: React.FC<SEOProps> = ({
     description = "A.P.D.F.E - Action Pour le Développement de la Femme et de l'Enfant. A survivor-led humanitarian organization empowering women and children in conflict-affected Central Africa.",
     keywords = "APDFE, humanitarian, women empowerment, child welfare, Central Africa, survivor-led, development",
     image = "/og-image.jpg", // Make sure to provide a default OG image in public folder
-    url = "https://apdf-ong.org", // Replace with actual domain
+    url,
     type = 'website'
 }) => {
+    const location = useLocation();
     const siteTitle = "A.P.D.F.E";
     const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+
+    // Construct the full URL if not provided
+    const canonicalUrl = url || `https://apdf-ong.org${location.pathname}`;
 
     return (
         <Helmet>
             {/* Standard metadata tags */}
             <title>{fullTitle}</title>
+            <link rel="canonical" href={canonicalUrl} />
             <meta name='description' content={description} />
             <meta name='keywords' content={keywords} />
 
@@ -33,7 +38,7 @@ export const SEO: React.FC<SEOProps> = ({
             <meta property="og:title" content={fullTitle} />
             <meta property="og:description" content={description} />
             <meta property="og:image" content={image} />
-            <meta property="og:url" content={url} />
+            <meta property="og:url" content={canonicalUrl} />
 
             {/* Twitter */}
             <meta name="twitter:creator" content="@apdfe_org" />

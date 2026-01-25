@@ -76,6 +76,7 @@ export const GalleryPage: React.FC = () => {
                             </div>
                         </div>
                         <div className="p-8">
+                            {getImageUrl(item.img)}
                             <h3 className="font-black text-slate-900 text-lg leading-tight mb-2">{item.title}</h3>
                             <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{item.subtitle}</p>
                         </div>
