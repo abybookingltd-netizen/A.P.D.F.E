@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://apdf-ong.org/sitemap.xml
