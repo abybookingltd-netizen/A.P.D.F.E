@@ -12,7 +12,7 @@ import { DashboardLayout } from './components/dashboard/DashboardLayout';
 const Home = React.lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
 const About = React.lazy(() => import('./pages/About').then(module => ({ default: module.About })));
 const Programs = React.lazy(() => import('./pages/Programs').then(module => ({ default: module.Programs })));
-const ProgramDetails = React.lazy(() => import('./pages/ProgramDetails').then(module => ({ default: module.ProgramDetails })));
+const ProgramDetails = React.lazy(() => import('./pages/ProgramDetails').then(module => ({ default: module.ProgramDetail })));
 const Impact = React.lazy(() => import('./pages/Impact').then(module => ({ default: module.Impact })));
 const Events = React.lazy(() => import('./pages/Events').then(module => ({ default: module.Events })));
 const Publication = React.lazy(() => import('./pages/Publication').then(module => ({ default: module.Publication })));

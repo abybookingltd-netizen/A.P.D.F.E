@@ -2,34 +2,69 @@ import React, { useState } from 'react';
 import { Shield, Heart, Users, CheckCircle, Mail, Phone, MapPin, Globe, X, Linkedin, Twitter } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { LazyImage } from '../components/LazyImage';
+import image1 from  '../assets/about.png'
 
 const TEAM_MEMBERS = [
-  { id: 'amina', name: 'Amina N.', role: 'Programs Director', location: 'Rwanda', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&h=200&fit=crop', bio: 'Amina has over 12 years of experience in humanitarian program management across East and Central Africa.' },
-  { id: 'john', name: 'John K.', role: 'Field Coordinator', location: 'Kenya', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&h=200&fit=crop', bio: 'John specializes in rapid response and field logistics in conflict-affected regions.' },
-  { id: 'grace', name: 'Grace M.', role: 'MHPSS Lead', location: 'Uganda', image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=200&h=200&fit=crop', bio: 'Grace is a clinical psychologist focused on trauma healing and community resilience.' },
-  { id: 'pierre', name: 'Pierre L.', role: 'Logistics Manager', location: 'DRC', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&fit=crop', bio: 'Pierre manages complex supply chains across the Great Lakes region.' },
-  { id: 'marie', name: 'Marie T.', role: 'Safe Spaces Coord.', location: 'Central African Rep.', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&fit=crop', bio: 'Marie advocates for the protection of women and girls in internal displacement camps.' },
-  { id: 'emmanuel', name: 'Emmanuel B.', role: 'Finance Officer', location: 'Republic of Congo', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&h=200&fit=crop', bio: 'Emmanuel ensures financial transparency and accountability for all regional projects.' },
-  { id: 'chantal', name: 'Chantal R.', role: 'Health Program Lead', location: 'Cameroon', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&fit=crop', bio: 'Chantal oversees mobile health clinics and maternal care initiatives.' },
-  { id: 'samuel', name: 'Samuel O.', role: 'Monitoring Officer', location: 'Tanzania', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&fit=crop', bio: 'Samuel tracks project impact and beneficiary data across the region.' },
-  { id: 'fatou', name: 'Fatou S.', role: 'Communications', location: 'Senegal', image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?q=80&w=200&h=200&fit=crop', bio: 'Fatou manages regional storytelling and international advocacy campaigns.' },
-  { id: 'kwame', name: 'Kwame A.', role: 'M&E Specialist', location: 'Ghana', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&h=200&fit=crop', bio: 'Kwame focuses on data-driven strategy and project efficiency.' },
-  { id: 'aisha', name: 'Aisha N.', role: 'Education Coord.', location: 'Nigeria', image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=200&h=200&fit=crop', bio: 'Aisha leads literacy and foundational learning programs for displaced youth.' },
-  { id: 'hassan', name: 'Hassan D.', role: 'Agriculture Specialist', location: 'Mali', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&fit=crop', bio: 'Hassan develops sustainable farming and food security initiatives.' },
-  { id: 'selam', name: 'Selam G.', role: 'Advocacy Lead', location: 'Ethiopia', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&h=200&fit=crop', bio: 'Selam works with regional bodies to advocate for women\'s rights and legal protection.' },
-  { id: 'abdi', name: 'Abdi M.', role: 'Programs Officer', location: 'Somalia', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&h=200&fit=crop', bio: 'Abdi coordinates emergency relief and community development in fragile zones.' },
-  { id: 'ruth', name: 'Ruth K.', role: 'Protection Lead', location: 'South Sudan', image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=200&h=200&fit=crop', bio: 'Ruth specializes in child protection and prevention of gender-based violence.' },
-  { id: 'omar', name: 'Omar H.', role: 'Operations Manager', location: 'Sudan', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&fit=crop', bio: 'Omar manages regional logistics and security protocols for field missions.' },
-  { id: 'lillian', name: 'Lillian Z.', role: 'HR & Training', location: 'Zambia', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&fit=crop', bio: 'Lillian focuses on staff development and regional capacity building.' },
-  { id: 'temba', name: 'Temba S.', role: 'Legal Advisor', location: 'Zimbabwe', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&h=200&fit=crop', bio: 'Temba provides legal counsel and supports advocacy for human rights legislation.' },
-  { id: 'marta', name: 'Marta P.', role: 'Communities Lead', location: 'Mozambique', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&fit=crop', bio: 'Marta leads grassroots mobilization and community engagement initiatives.' },
+  { id: 'amina',    name: 'Amina N.',     role: 'Programs Director',          location: 'Rwanda',                  image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&h=400&fit=crop', bio: 'Leads multi-country program strategy with focus on GBV, psychosocial support and women’s economic empowerment in fragile contexts.' },
+  { id: 'john',     name: 'John K.',      role: 'Field Coordinator',          location: 'Kenya',                   image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&fit=crop', bio: 'Coordinates rapid emergency response, logistics and cross-border operations in conflict-affected areas.' },
+  { id: 'grace',    name: 'Grace M.',     role: 'MHPSS Lead',                 location: 'Uganda',                  image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Clinical psychologist delivering trauma-informed mental health and psychosocial support to survivors.' },
+  { id: 'pierre',   name: 'Pierre L.',    role: 'Logistics Manager',         location: 'DRC',                     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Manages supply chains, procurement and field logistics in high-risk humanitarian environments.' },
+  { id: 'marie',    name: 'Marie T.',     role: 'Safe Spaces Coord.',        location: 'Central African Rep.',    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Establishes and manages women & girls safe spaces in IDP camps and conflict zones.' },
+  { id: 'emmanuel', name: 'Emmanuel B.',  role: 'Finance Officer',           location: 'Republic of Congo',       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Oversees financial compliance, transparency and donor reporting across regional projects.' },
+  { id: 'chantal',  name: 'Chantal R.',   role: 'Health Program Lead',       location: 'Cameroon',                image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Leads mobile clinics, maternal/reproductive health and primary healthcare in crisis settings.' },
+  { id: 'samuel',   name: 'Samuel O.',    role: 'Monitoring Officer',        location: 'Tanzania',                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop', bio: 'Responsible for real-time data collection, beneficiary tracking and impact monitoring.' },
+  { id: 'fatou',    name: 'Fatou S.',     role: 'Communications',            location: 'Senegal',                 image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?q=80&w=400&h=400&fit=crop', bio: 'Manages storytelling, advocacy campaigns, media relations and external communications.' },
+  { id: 'kwame',    name: 'Kwame A.',     role: 'M&E Specialist',            location: 'Ghana',                   image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&fit=crop', bio: 'Designs monitoring & evaluation frameworks and drives data-informed decision making.' },
+  { id: 'aisha',    name: 'Aisha N.',     role: 'Education Coord.',          location: 'Nigeria',                 image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=400&h=400&fit=crop', bio: 'Coordinates literacy, foundational learning and girls’ education programs for displaced youth.' },
+  { id: 'hassan',   name: 'Hassan D.',    role: 'Agriculture Specialist',    location: 'Mali',                    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Develops climate-smart agriculture and food security programs in Sahel & conflict zones.' },
+  { id: 'selam',    name: 'Selam G.',     role: 'Advocacy Lead',             location: 'Ethiopia',                image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&h=400&fit=crop', bio: 'Leads policy advocacy and engagement with regional bodies on women’s rights & protection.' },
+  { id: 'abdi',     name: 'Abdi M.',      role: 'Programs Officer',          location: 'Somalia',                 image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&fit=crop', bio: 'Coordinates emergency relief, protection and community development in fragile contexts.' },
+  { id: 'ruth',     name: 'Ruth K.',      role: 'Protection Lead',           location: 'South Sudan',             image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Specializes in child protection, GBV prevention and case management in emergencies.' },
+  { id: 'omar',     name: 'Omar H.',      role: 'Operations Manager',        location: 'Sudan',                   image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Oversees field security, logistics planning and operational continuity in high-risk areas.' },
+  { id: 'lillian',  name: 'Lillian Z.',   role: 'HR & Training',             location: 'Zambia',                  image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Manages survivor-sensitive HR policies, staff training and regional capacity building.' },
+  { id: 'temba',    name: 'Temba S.',     role: 'Legal Advisor',             location: 'Zimbabwe',                image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Provides legal support, policy analysis and survivor-centered advocacy on human rights.' },
+  { id: 'marta',    name: 'Marta P.',     role: 'Communities Lead',          location: 'Mozambique',              image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Drives grassroots mobilization, community dialogue and local peacebuilding initiatives.' },
+
+  // You asked to add one for Serge – example placement
+  { id: 'serge',    name: 'Serge B.',     role: 'Protection & Advocacy Officer', location: 'Burundi',             image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop', bio: 'Leads protection monitoring, community feedback mechanisms and advocacy in the Great Lakes region.' },
 ];
 
 const TIMELINE_EVENTS = [
-  { year: '2019', title: 'Foundation', description: 'APDFE was founded by two human rights defenders to transform personal experiences of loss into collective healing.' },
-  { year: '2020', title: 'Regional Expansion', description: 'Operations expanded to DRC and CAR, focusing on trauma-informed interventions.' },
-  { year: '2022', title: 'Global Recognition', description: 'Received international awards for survivor-led humanitarian leadership.' },
-  { year: '2024', title: 'Scaling Impact', description: 'Reaching over 50,000 beneficiaries with integrated health and education programs.' },
+  {
+    year: '2019',
+    title: 'A Vision Born from Survival',
+    description: 'In a small community hall in Bangui, Central African Republic, two survivors made a promise: no woman, no child should walk the path they walked—alone, unseen, unheard. Adelithe MUGABO and Princia KORONADO officially registered APDFE with just $500, a borrowed office space, and an unshakeable belief that those who survive violence can lead the healing of others. By the end of 2019, we had supported 450 women and children in Bangui’s most marginalized neighborhoods.'
+  },
+  {
+    year: '2020',
+    title: 'Crossing Borders, Breaking Barriers',
+    description: 'As armed violence escalated in Eastern DRC, we answered the call. Our first cross-border mission took us to North Kivu, where we opened Women’s Safe Spaces in displacement camps. Despite COVID-19 lockdowns and active conflict, our team delivered psychosocial support, emergency supplies, and GBV response services to 8,000+ women and children.'
+  },
+  {
+    year: '2021',
+    title: 'From Relief to Resilience',
+    description: 'We launched our Economic Empowerment Initiative, training 1,200 women in tailoring, soap-making, and small business management. Survivors who once relied on aid started businesses, hired employees, and sent their children to school. We also trained 50 community health workers and protection officers.'
+  },
+  {
+    year: '2022',
+    title: 'A Regional Movement',
+    description: 'Our footprint expanded to Republic of Congo and Cameroon, serving refugees, IDPs, and host communities. We introduced mental health services, launched the Girls’ Education Scholarship Program (supporting 800+ girls), and established mobile health clinics. By year’s end, we had 32,000 direct beneficiaries.'
+  },
+  {
+    year: '2023',
+    title: 'Innovation Meets Impact',
+    description: 'We launched Climate-Smart Agriculture training, helping 2,500 families build resilience against drought and food insecurity. Our Peace-Building Circles brought together women from opposing ethnic groups. Total reach: 45,000+ lives transformed across 142 communities.'
+  },
+  {
+    year: '2024',
+    title: 'Amplifying Voices',
+    description: 'We co-founded the Central Africa Women’s Protection Network, connecting 35+ grassroots organizations. APDFE staff testified before regional parliaments on GBV legislation and child protection policies. Over 68,000 beneficiaries. Survivors leading every level of our organization.'
+  },
+  {
+    year: '2025',
+    title: 'Scaling What Works, Dreaming Bigger',
+    description: 'Our goal: reach 100,000 beneficiaries by year-end through expansion of renewable energy projects, trauma healing centers, and girls’ scholarships. Launching the Survivor Leadership Academy and piloting a Women’s Cooperative Bank.'
+  },
 ];
 
 export const About = () => {
@@ -39,8 +74,9 @@ export const About = () => {
     <div className="animate-in fade-in duration-700">
       <SEO
         title="About Us"
-        description="Learn about A.P.D.F.E, a survivor-led organization founded in 2019 to transform personal experiences of loss into collective healing for women and children in Central Africa."
+        description="From survivors to changemakers — empowering women and children in conflict-affected Central Africa since 2019"
       />
+
       {/* Hero */}
       <section id="hero" className="bg-blue-900 py-24 text-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
@@ -52,7 +88,7 @@ export const About = () => {
         <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-800/20 -skew-x-12 transform translate-x-20"></div>
       </section>
 
-      {/* Who We Are */}
+      {/* Who We Are – text aligned with HTML */}
       <section id="who-we-are" className="py-24 max-w-7xl mx-auto px-4 border-b border-slate-100">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-10">
@@ -60,23 +96,23 @@ export const About = () => {
             <h2 className="text-4xl font-black text-slate-900 tracking-tight leading-none">Survivor-Led & Community Driven</h2>
             <div className="space-y-6 text-slate-600 leading-relaxed font-medium">
               <p>
-                Action Pour le Développement de la Femme et de l'Enfant (APDFE) is a survivor-led, women- and child-centered humanitarian organization founded in 2019 by two human rights defenders who transformed their personal experiences of violence and loss into a powerful force for collective healing and systemic change.
+                <strong>Action Pour le Développement de la Femme et de l'Enfant (APDFE)</strong> is a survivor-led, women- and child-centered humanitarian organization founded in 2019 by two human rights defenders who transformed their personal experiences of violence and loss into a powerful force for collective healing and systemic change.
               </p>
               <div className="bg-slate-900 text-white p-8 rounded-[2rem] shadow-xl border-l-8 border-blue-600 relative overflow-hidden group">
                 <p className="relative z-10 font-bold italic text-lg leading-relaxed">
-                  "We are not just an organization that works for vulnerable populations—we ARE those populations. Our staff, leadership, and community mobilizers are survivors."
+                  "We are not just an organization that works for vulnerable populations—we ARE those populations. Our staff, leadership, and community mobilizers are survivors of genocide, armed conflict, gender-based violence, displacement, and extreme poverty."
                 </p>
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-600/10 rounded-full group-hover:scale-110 transition-transform"></div>
               </div>
               <p>
-                Operating in four of Central Africa's most fragile and conflict-affected countries—Central African Republic, Democratic Republic of Congo, Republic of Congo, and Cameroon—we deliver trauma-informed, locally-led interventions.
+                Operating in four of Central Africa's most fragile and conflict-affected countries—Central African Republic, Democratic Republic of Congo (Eastern DRC), Republic of Congo (Congo-Brazzaville), and Cameroon—we deliver trauma-informed, culturally relevant, and locally-led interventions in health, education, protection, economic empowerment, and peace-building.
               </p>
             </div>
           </div>
           <div className="relative">
             <div className="rounded-[3rem] overflow-hidden shadow-2xl h-[600px] relative z-10 bg-slate-100">
               <LazyImage
-                src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=2070&auto=format&fit=crop"
+                src={image1}
                 alt="Empowerment"
                 className="w-full h-full object-cover"
                 containerClassName="w-full h-full"
@@ -88,37 +124,37 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Mission & Vision */}
+      {/* Mission & Vision – updated from HTML */}
       <section id="mission" className="py-24 max-w-7xl mx-auto px-4 border-b border-slate-100">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="bg-slate-900 text-white p-14 rounded-[3.5rem] shadow-2xl relative overflow-hidden group">
             <h3 className="text-3xl font-black mb-8 relative z-10">Our Mission</h3>
             <p className="text-slate-300 text-xl leading-relaxed italic font-medium relative z-10">
-              "To empower, protect, and advocate for vulnerable women and children living in conflict and post-conflict environments across Central Africa by providing holistic, trauma-informed services."
+              To empower, protect, and advocate for vulnerable women and children living in conflict and post-conflict environments across Central Africa by providing holistic, trauma-informed services in health, education, economic empowerment, child protection, environmental sustainability, and peace-building.
             </p>
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl group-hover:bg-blue-600/20 transition-all"></div>
           </div>
           <div id="vision" className="bg-blue-600 text-white p-14 rounded-[3.5rem] shadow-2xl relative overflow-hidden group">
             <h3 className="text-3xl font-black mb-8 relative z-10">Our Vision</h3>
             <p className="text-blue-50 text-xl leading-relaxed italic font-medium relative z-10">
-              "A Central Africa where every woman and child—regardless of conflict or poverty—lives with dignity, safety, and the full realization of their rights."
+              A Central Africa where every woman and child—regardless of conflict, displacement, or poverty—lives with dignity, safety, and the full realization of their rights and potential in resilient, peaceful communities.
             </p>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all"></div>
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Values – kept as is (matches HTML core values) */}
       <section id="values" className="py-24 max-w-7xl mx-auto px-4 border-b border-slate-100">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-black text-slate-900 tracking-tight">Our Strategic Core</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { icon: <Users size={32} />, title: "Survivor-Centered", desc: "Our programs are designed BY survivors, FOR survivors." },
-            { icon: <Heart size={32} />, title: "Dignity & Respect", desc: "We restore hope, autonomy, and self-worth to those society has marginalized." },
-            { icon: <Shield size={32} />, title: "Community-Led", desc: "We empower local leaders and support grassroots solutions." },
-            { icon: <CheckCircle size={32} />, title: "Do No Harm", desc: "Safety, confidentiality, and trauma-informed care are at the heart of our work." }
+            { icon: <Users size={32} />,        title: "Survivor-Centered",   desc: "Our programs are designed BY survivors, FOR survivors." },
+            { icon: <Heart size={32} />,        title: "Dignity & Respect",   desc: "We restore hope, autonomy, and self-worth to those society has marginalized." },
+            { icon: <Shield size={32} />,       title: "Community-Led",       desc: "We empower local leaders and support grassroots solutions." },
+            { icon: <CheckCircle size={32} />,  title: "Do No Harm",          desc: "Safety, confidentiality, and trauma-informed care are at the heart of our work." }
           ].map((v, idx) => (
             <div key={idx} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 text-center hover:shadow-xl transition-all hover:-translate-y-2 group">
               <div className="text-blue-600 flex justify-center mb-8 group-hover:scale-110 transition-transform">{v.icon}</div>
@@ -129,12 +165,14 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Team – updated data + Serge added */}
       <section id="team" className="py-24 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black text-slate-900 tracking-tight">Our Regional Team</h2>
-            <p className="mt-4 text-slate-500 font-bold uppercase tracking-widest text-[10px]">A dedicated, diverse team of field experts and leaders across Central Africa and beyond.</p>
+            <p className="mt-4 text-slate-500 font-bold uppercase tracking-widest text-[10px]">
+              A dedicated, diverse team of field experts and leaders across Central Africa and beyond.
+            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {TEAM_MEMBERS.map((member) => (
@@ -146,7 +184,9 @@ export const About = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     containerClassName="w-full h-full"
                   />
-                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[8px] font-black text-white uppercase tracking-widest">{member.location}</div>
+                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[8px] font-black text-white uppercase tracking-widest">
+                    {member.location}
+                  </div>
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-lg font-black text-slate-900 mb-1">{member.name}</h3>
@@ -164,10 +204,10 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Profile Popup */}
+      {/* Profile modal – same design, new bios */}
       {selectedMember && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-500 ease-out" onClick={() => setSelectedMember(null)}></div>
+          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-500 ease-out" onClick={() => setSelectedMember(null)} />
           <div className="relative w-full max-w-2xl bg-white rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in duration-500 ease-out">
             <button
               onClick={() => setSelectedMember(null)}
@@ -204,12 +244,14 @@ export const About = () => {
         </div>
       )}
 
-      {/* History Section */}
+      {/* History – now uses detailed 2019–2025 stories */}
       <section id="history" className="py-24 bg-white overflow-hidden border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-4xl font-black text-slate-900 tracking-tight">Our Operational History</h2>
-            <p className="mt-4 text-slate-500 font-bold uppercase tracking-widest text-[10px]">A Legacy of Survival and Growth</p>
+            <h2 className="text-4xl font-black text-slate-900 tracking-tight">Our Journey</h2>
+            <p className="mt-4 text-slate-500 font-bold uppercase tracking-widest text-[10px]">
+              Every milestone represents lives transformed, communities rebuilt, and survivors who refused to let their past define their future.
+            </p>
           </div>
           <div className="relative border-l-4 border-blue-50 ml-4 md:ml-auto md:mr-auto space-y-20 max-w-4xl mx-auto">
             {TIMELINE_EVENTS.map((event) => (
@@ -228,7 +270,7 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Where We Work */}
+      {/* Where We Work – updated to match HTML 4 countries + stats */}
       <section id="locations" className="py-24 bg-slate-900 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -236,14 +278,15 @@ export const About = () => {
               <div className="inline-block px-4 py-1.5 bg-blue-600/20 text-blue-400 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">Regional Footprint</div>
               <h2 className="text-4xl font-black mb-8 tracking-tight">Where We Work</h2>
               <p className="text-slate-400 text-lg leading-relaxed mb-12 font-light italic">
-                Our operations span across the most fragile environments in Central Africa, focusing on cross-border coordination and grassroots protection.
+                APDFE operates in four of the world's most challenging humanitarian contexts — we go where others cannot or will not go.
               </p>
               <div className="grid grid-cols-2 gap-8">
                 {[
-                  { name: 'DR Congo', projects: '12 active missions' },
-                  { name: 'C.A.R', projects: '8 regional hubs' },
-                  { name: 'Cameroon', projects: '6 medical centers' },
-                  { name: 'Rep. Congo', projects: '5 safe spaces' },
+                  { name: 'Central African Republic', projects: '25,000+ Reached – 8 Safe Spaces' },
+                  { name: 'DR Congo (Eastern)',       projects: '28,000+ Reached – 12 Communities' },
+                  { name: 'Republic of Congo',        projects: '10,000+ Reached – 5 Centers' },
+                  { name: 'Cameroon',                 projects: '5,000+ Reached – 4 Clinics' },
+                  { name: 'Rwanda',                 projects: '2,000+ Reached – 4 Clinics' },
                 ].map((loc) => (
                   <div key={loc.name} className="space-y-2">
                     <div className="flex items-center gap-3">
@@ -263,7 +306,7 @@ export const About = () => {
                     <Globe size={48} className="text-blue-400 animate-spin-slow" />
                   </div>
                   <h3 className="text-2xl font-black mb-4 tracking-tight uppercase">Cross-Border Impact</h3>
-                  <p className="text-sm text-slate-400 font-medium">Protecting the most vulnerable populations across borders.</p>
+                  <p className="text-sm text-slate-400 font-medium">Protecting the most vulnerable across borders.</p>
                 </div>
               </div>
             </div>
