@@ -3,11 +3,24 @@ import type { User } from '../types';
 
 class AuthService {
     /**
-     * Login with email and password
+     * Send OTP to email
      */
-    async login(email: string, password: string): Promise<{ user: User; token: string }> {
+    async sendOTP(email: string): Promise<{ email: string; expiresIn: number }> {
         try {
-            const response = await apiClient.post('/auth/login', { email, password });
+            const response = await apiClient.post('/auth/send-otp', { email });
+            return response.data;
+        } catch (error: any) {
+            console.error('Send OTP error:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Verify OTP and login
+     */
+    async verifyOTP(email: string, otp: string): Promise<{ user: User; token: string }> {
+        try {
+            const response = await apiClient.post('/auth/verify-otp', { email, otp });
 
             // Store token in localStorage
             if (response.data.token) {
@@ -16,7 +29,7 @@ class AuthService {
 
             return response.data;
         } catch (error: any) {
-            console.error('Login error:', error);
+            console.error('Verify OTP error:', error);
             throw error;
         }
     }
@@ -54,15 +67,14 @@ class AuthService {
     }
 
     /**
-   * Register new staff member (admin only)
-   */
-    async registerStaff(name: string, email: string, role: 'admin' | 'helper', password: string): Promise<User> {
+     * Register new staff member (admin only)
+     */
+    async registerStaff(name: string, email: string, role: 'admin' | 'helper'): Promise<User> {
         try {
             const response = await apiClient.post('/auth/register-staff', {
                 name,
                 email,
                 role,
-                password,
             });
             return response.data;
         } catch (error: any) {

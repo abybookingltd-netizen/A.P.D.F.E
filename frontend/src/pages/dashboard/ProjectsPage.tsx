@@ -23,33 +23,60 @@ export const ProjectsPage: React.FC = () => {
         goals: []
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const id = `p-${Date.now()}`;
-        const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        if (isSubmitting) return;
 
-        await addProject({
-            id,
-            title: form.title,
-            status: 'In Progress',
-            region: form.region,
-            timeline: form.timeline,
-            beneficiaries: form.beneficiaries,
-            description: form.description,
-            progress: 0,
-            goals: form.goals,
-            lastUpdated: date,
-            completedItems: [],
-            missingItems: [],
-            currentFunding: 0,
-            targetFunding: 0,
-            purpose: form.description,
-            duration: form.timeline,
-            field: 'Health'
-        });
+        setIsSubmitting(true);
+        try {
+            const id = `p-${Date.now()}`;
+            const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-        setIsModalOpen(false);
-        setForm({ title: '', region: '', timeline: '', beneficiaries: '', description: '', goals: [] });
+            await addProject({
+                id,
+                title: form.title,
+                status: 'In Progress',
+                region: form.region,
+                timeline: form.timeline,
+                beneficiaries: form.beneficiaries,
+                description: form.description,
+                progress: 0,
+                goals: form.goals,
+                lastUpdated: date,
+                completedItems: [],
+                missingItems: [],
+                currentFunding: 0,
+                targetFunding: 0,
+                purpose: form.description,
+                duration: form.timeline,
+                field: 'Health'
+            });
+
+            setIsModalOpen(false);
+            setForm({ title: '', region: '', timeline: '', beneficiaries: '', description: '', goals: [] });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleDelete = async (id: string, title: string) => {
+        if (deletingId) return;
+
+        if (window.confirm(`Are you sure you want to terminate mission: ${title}? This action cannot be reversed.`)) {
+            setDeletingId(id);
+            try {
+                await deleteProject(id);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setDeletingId(null);
+            }
+        }
     };
 
     return (
@@ -96,15 +123,12 @@ export const ProjectsPage: React.FC = () => {
                                         <LinkIcon size={12} /> Update Mission
                                     </Link>
                                     <button
-                                        onClick={() => {
-                                            if (window.confirm(`Are you sure you want to terminate mission: ${p.title}? This action cannot be reversed.`)) {
-                                                deleteProject(p.id);
-                                            }
-                                        }}
-                                        className="p-2.5 bg-red-50 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition-all"
+                                        onClick={() => handleDelete(p.id, p.title)}
+                                        disabled={deletingId === p.id}
+                                        className="p-2.5 bg-red-50 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                         title="Terminate Mission"
                                     >
-                                        <X size={18} />
+                                        {deletingId === p.id ? <div className="w-4 h-4 border-2 border-red-600/30 border-t-red-600 rounded-full animate-spin" /> : <X size={18} />}
                                     </button>
                                 </td>
                             </tr>
@@ -203,7 +227,18 @@ export const ProjectsPage: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" className="w-full py-5 bg-slate-900 text-white rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all">Publish to Network</button>
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full py-5 bg-slate-900 text-white rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        <span>Publishing...</span>
+                                    </>
+                                ) : 'Publish to Network'}
+                            </button>
                         </form>
                     </div>
                 </div>

@@ -22,15 +22,26 @@ export const EventsPage: React.FC = () => {
         type: 'Mission'
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const id = `ev-${Date.now()}`;
-        await addEvent({
-            id,
-            ...form
-        });
-        setIsModalOpen(false);
-        setForm({ title: '', date: '', startTime: '', endTime: '', location: '', description: '', type: 'Mission' });
+        if (isSubmitting) return;
+
+        setIsSubmitting(true);
+        try {
+            const id = `ev-${Date.now()}`;
+            await addEvent({
+                id,
+                ...form
+            });
+            setIsModalOpen(false);
+            setForm({ title: '', date: '', startTime: '', endTime: '', location: '', description: '', type: 'Mission' });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -133,7 +144,18 @@ export const EventsPage: React.FC = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="w-full py-5 bg-slate-900 text-white rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all">Publish to Network</button>
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full py-5 bg-slate-900 text-white rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        <span>Publishing...</span>
+                                    </>
+                                ) : 'Publish to Network'}
+                            </button>
                         </form>
                     </div>
                 </div>

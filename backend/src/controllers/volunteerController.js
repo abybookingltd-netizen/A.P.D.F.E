@@ -52,3 +52,117 @@ export const createVolunteer = async (req, res) => {
         });
     }
 };
+
+// Get volunteer by ID
+export const getVolunteerById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const volunteer = await Volunteer.findByPk(id);
+
+        if (!volunteer) {
+            return res.status(404).json({
+                success: false,
+                message: 'Volunteer not found'
+            });
+        }
+
+        res.json({
+            success: true,
+            data: volunteer
+        });
+    } catch (error) {
+        console.error('Get volunteer by ID error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};
+
+// Update volunteer
+export const updateVolunteer = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+
+        const volunteer = await Volunteer.findByPk(id);
+
+        if (!volunteer) {
+            return res.status(404).json({
+                success: false,
+                message: 'Volunteer not found'
+            });
+        }
+
+        await volunteer.update(updateData);
+
+        res.json({
+            success: true,
+            message: 'Volunteer updated successfully',
+            data: volunteer
+        });
+    } catch (error) {
+        console.error('Update volunteer error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};
+
+// Delete volunteer
+export const deleteVolunteer = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const volunteer = await Volunteer.findByPk(id);
+
+        if (!volunteer) {
+            return res.status(404).json({
+                success: false,
+                message: 'Volunteer not found'
+            });
+        }
+
+        await volunteer.destroy();
+
+        res.json({
+            success: true,
+            message: 'Volunteer deleted successfully'
+        });
+    } catch (error) {
+        console.error('Delete volunteer error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};
+
+// Approve volunteer
+export const approveVolunteer = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const volunteer = await Volunteer.findByPk(id);
+
+        if (!volunteer) {
+            return res.status(404).json({
+                success: false,
+                message: 'Volunteer not found'
+            });
+        }
+
+        await volunteer.update({ isApproved: true });
+
+        res.json({
+            success: true,
+            message: 'Volunteer approved successfully',
+            data: volunteer
+        });
+    } catch (error) {
+        console.error('Approve volunteer error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+};

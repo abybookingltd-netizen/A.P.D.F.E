@@ -41,7 +41,7 @@ class UserService {
                 const formData = new FormData();
                 formData.append('profilePicture', data.file);
                 Object.keys(data).forEach(key => {
-                    if (key !== 'file') {
+                    if (key !== 'file' && key !== 'profilePicture') {
                         formData.append(key, (data as any)[key]);
                     }
                 });
@@ -71,7 +71,7 @@ class UserService {
                 const formData = new FormData();
                 formData.append('profilePicture', data.file);
                 Object.keys(data).forEach(key => {
-                    if (key !== 'file') {
+                    if (key !== 'file' && key !== 'profilePicture') {
                         formData.append(key, (data as any)[key]);
                     }
                 });

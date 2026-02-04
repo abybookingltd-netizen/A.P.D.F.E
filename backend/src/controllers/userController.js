@@ -139,8 +139,8 @@ export const updateProfile = async (req, res) => {
             });
         }
 
-        // Only allow name and profilePicture updates for profile
-        const allowedUpdates = ['name', 'profilePicture'];
+        // Only allow name, email and profilePicture updates for profile
+        const allowedUpdates = ['name', 'email', 'profilePicture'];
         const filteredUpdates = {};
 
         allowedUpdates.forEach(field => {

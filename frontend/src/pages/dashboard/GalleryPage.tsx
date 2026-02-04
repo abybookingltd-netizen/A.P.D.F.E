@@ -21,6 +21,9 @@ export const GalleryPage: React.FC = () => {
         img: ''
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
+
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -34,16 +37,37 @@ export const GalleryPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const id = `g-${Date.now()}`;
-        await addImage({
-            id,
-            title: form.title,
-            subtitle: form.subtitle,
-            img: form.img || 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=2070&auto=format&fit=crop',
-            file: form.file // Pass the file object
-        } as any);
-        setIsModalOpen(false);
-        setForm({ title: '', subtitle: '', img: '' });
+        if (isSubmitting) return;
+
+        setIsSubmitting(true);
+        try {
+            const id = `g-${Date.now()}`;
+            await addImage({
+                id,
+                title: form.title,
+                subtitle: form.subtitle,
+                img: form.img || 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=2070&auto=format&fit=crop',
+                file: form.file // Pass the file object
+            } as any);
+            setIsModalOpen(false);
+            setForm({ title: '', subtitle: '', img: '' });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (deletingId) return;
+        setDeletingId(id);
+        try {
+            await deleteImage(id);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setDeletingId(null);
+        }
     };
 
     return (
@@ -68,15 +92,16 @@ export const GalleryPage: React.FC = () => {
                             <img src={getImageUrl(item.img)} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
                                 <button
-                                    onClick={() => deleteImage(item.id)}
-                                    className="p-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors"
+                                    onClick={() => handleDelete(item.id)}
+                                    disabled={deletingId === item.id}
+                                    className="p-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    <X size={20} />
+                                    {deletingId === item.id ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <X size={20} />}
                                 </button>
                             </div>
                         </div>
                         <div className="p-8">
-                            {getImageUrl(item.img)}
+                            {/* Removed redundant getImageUrl call that was printing null */}
                             <h3 className="font-black text-slate-900 text-lg leading-tight mb-2">{item.title}</h3>
                             <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{item.subtitle}</p>
                         </div>
@@ -135,7 +160,18 @@ export const GalleryPage: React.FC = () => {
                                     )}
                                 </div>
                             </div>
-                            <button type="submit" className="w-full py-5 bg-slate-900 text-white rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all">Publish to Gallery</button>
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full py-5 bg-slate-900 text-white rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        <span>Publishing...</span>
+                                    </>
+                                ) : 'Publish to Gallery'}
+                            </button>
                         </form>
                     </div>
                 </div>

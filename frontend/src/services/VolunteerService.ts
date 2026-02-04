@@ -29,6 +29,57 @@ class VolunteerService {
             throw error;
         }
     }
+
+    /**
+     * Get volunteer by ID
+     */
+    async getById(id: string): Promise<Volunteer> {
+        try {
+            const response = await apiClient.get(`/volunteers/${id}`);
+            return response.data;
+        } catch (error: any) {
+            console.error('Get volunteer by ID error:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Update volunteer
+     */
+    async update(id: string, data: Partial<Volunteer>): Promise<Volunteer> {
+        try {
+            const response = await apiClient.put(`/volunteers/${id}`, data);
+            return response.data;
+        } catch (error: any) {
+            console.error('Update volunteer error:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Delete volunteer
+     */
+    async delete(id: string): Promise<void> {
+        try {
+            await apiClient.delete(`/volunteers/${id}`);
+        } catch (error: any) {
+            console.error('Delete volunteer error:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Approve volunteer
+     */
+    async approve(id: string): Promise<Volunteer> {
+        try {
+            const response = await apiClient.patch(`/volunteers/${id}/approve`);
+            return response.data;
+        } catch (error: any) {
+            console.error('Approve volunteer error:', error);
+            throw error;
+        }
+    }
 }
 
 // Export singleton instance

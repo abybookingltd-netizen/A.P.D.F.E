@@ -36,6 +36,7 @@ const StaffPage = React.lazy(() => import('./pages/dashboard/StaffPage').then(mo
 const ProjectsPage = React.lazy(() => import('./pages/dashboard/ProjectsPage').then(module => ({ default: module.ProjectsPage })));
 const ProfilePage = React.lazy(() => import('./pages/dashboard/ProfilePage').then(module => ({ default: module.ProfilePage })));
 const ProjectManagement = React.lazy(() => import('./pages/ProjectManagement').then(module => ({ default: module.ProjectManagement })));
+const HelpersPage = React.lazy(() => import('./pages/dashboard/HelpersPage').then(module => ({ default: module.HelpersPage })));
 
 const App: React.FC = () => {
   return (
@@ -79,6 +80,7 @@ const App: React.FC = () => {
                     <Route path="donations" element={<DonationsPage />} />
                     <Route path="finance" element={<ExpensesPage />} />
                     <Route path="staff" element={<StaffPage />} />
+                    <Route path="helpers" element={<HelpersPage />} />
                     <Route path="profile" element={<ProfilePage />} />
                   </Route>
 

@@ -1,12 +1,13 @@
 import express from 'express';
-import { login, registerStaff, logout, getCurrentUser } from '../controllers/authController.js';
+import {  registerStaff, logout, getCurrentUser, sendOTP, verifyOTP } from '../controllers/authController.js';
 import { authenticate } from '../middleware/auth.js';
 import { requireAdmin } from '../middleware/roleCheck.js';
 
 const router = express.Router();
 
 // Public routes
-router.post('/login', login);
+router.post('/send-otp', sendOTP);
+router.post('/verify-otp', verifyOTP);
 router.post('/logout', logout);
 
 // Protected routes

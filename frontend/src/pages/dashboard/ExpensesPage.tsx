@@ -35,21 +35,32 @@ export const ExpensesPage: React.FC = () => {
         .map(e => ({ ...e, type: 'Expense', name: e.description || 'Project Support', source: e.category || 'Field' }))
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const id = `f-${Date.now()}`;
-        const date = new Date().toISOString().split('T')[0];
-        await addExpense({
-            id,
-            category: form.category as any,
-            amount: parseFloat(form.amount),
-            date,
-            description: form.description,
-            recipient: form.recipient || 'Regional Vendor',
-            status: 'Cleared'
-        });
-        setIsModalOpen(false);
-        setForm({ amount: '', description: '', category: 'Field Projects', recipient: '' });
+        if (isSubmitting) return;
+
+        setIsSubmitting(true);
+        try {
+            const id = `f-${Date.now()}`;
+            const date = new Date().toISOString().split('T')[0];
+            await addExpense({
+                id,
+                category: form.category as any,
+                amount: parseFloat(form.amount),
+                date,
+                description: form.description,
+                recipient: form.recipient || 'Regional Vendor',
+                status: 'Cleared'
+            });
+            setIsModalOpen(false);
+            setForm({ amount: '', description: '', category: 'Field Projects', recipient: '' });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     if (!stats) return <div className="animate-pulse h-96 bg-white rounded-[3rem]"></div>;
@@ -151,7 +162,18 @@ export const ExpensesPage: React.FC = () => {
                                     <label className="text-[10px] font-black uppercase text-slate-400 ml-1 tracking-widest">Strategic Mission Purpose</label>
                                     <input required type="text" className="w-full px-7 py-5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-black text-sm" placeholder="Purpose details..." value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
                                 </div>
-                                <button type="submit" className="w-full py-6 bg-slate-900 text-white rounded-[2rem] font-black text-sm uppercase tracking-[0.25em] shadow-2xl transition-all active:scale-95">Commit Transaction to Cloud</button>
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full py-6 bg-slate-900 text-white rounded-[2rem] font-black text-sm uppercase tracking-[0.25em] shadow-2xl transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            <span>Processing...</span>
+                                        </>
+                                    ) : 'Commit Transaction to Cloud'}
+                                </button>
                             </form>
                         </div>
                     </div>

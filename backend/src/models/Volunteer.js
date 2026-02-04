@@ -29,6 +29,10 @@ const Volunteer = sequelize.define('Volunteer', {
     interests: {
         type: DataTypes.JSON,
         defaultValue: []
+    },
+    isApproved:{
+        type: DataTypes.BOOLEAN,
+        defaultValue:false
     }
 }, {
     tableName: 'volunteers',

@@ -17,11 +17,22 @@ export const StaffPage: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form, setForm] = useState({ name: '', email: '', role: 'helper' as 'admin' | 'helper', password: '' });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await registerStaff(form.name, form.email, form.role, form.password);
-        setIsModalOpen(false);
-        setForm({ name: '', email: '', role: 'helper', password: '' });
+        if (isSubmitting) return;
+
+        setIsSubmitting(true);
+        try {
+            await registerStaff(form.name, form.email, form.role, form.password);
+            setIsModalOpen(false);
+            setForm({ name: '', email: '', role: 'helper', password: '' });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -112,7 +123,18 @@ export const StaffPage: React.FC = () => {
                                     ))}
                                 </div>
                             </div>
-                            <button type="submit" className="w-full py-6 bg-slate-900 text-white rounded-[1.8rem] font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-black transition-all">Publish Personnel Record</button>
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full py-6 bg-slate-900 text-white rounded-[1.8rem] font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        <span>Processing...</span>
+                                    </>
+                                ) : 'Publish Personnel Record'}
+                            </button>
                         </form>
                     </div>
                 </div>

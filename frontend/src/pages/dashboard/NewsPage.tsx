@@ -22,6 +22,9 @@ export const NewsPage: React.FC = () => {
         image: ''
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
+
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -35,19 +38,41 @@ export const NewsPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const id = `n-${Date.now()}`;
-        const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        await addNews({
-            id,
-            title: form.title,
-            date,
-            category: form.category || 'Regional Update',
-            excerpt: form.excerpt,
-            image: form.image || 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop',
-            file: form.file // Pass the file object
-        } as any);
-        setIsModalOpen(false);
-        setForm({ title: '', category: '', excerpt: '', image: '' });
+        if (isSubmitting) return;
+
+        setIsSubmitting(true);
+        try {
+            const id = `n-${Date.now()}`;
+            const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            await addNews({
+                id,
+                title: form.title,
+                date,
+                category: form.category || 'Regional Update',
+                excerpt: form.excerpt,
+                image: form.image || 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop',
+                file: form.file // Pass the file object
+            } as any);
+            setIsModalOpen(false);
+            setForm({ title: '', category: '', excerpt: '', image: '' });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (deletingId) return;
+        setDeletingId(id);
+
+        try {
+            await deleteNews(id);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setDeletingId(null);
+        }
     };
 
     return (
@@ -87,7 +112,18 @@ export const NewsPage: React.FC = () => {
                                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{n.category} • {n.date}</span>
                                 </td>
                                 <td className="px-10 py-8 text-right">
-                                    <button onClick={() => deleteNews(n.id)} className="text-[10px] font-black uppercase tracking-widest text-red-600 hover:underline">Delete Entry</button>
+                                    <button
+                                        onClick={() => handleDelete(n.id)}
+                                        disabled={deletingId === n.id}
+                                        className="text-[10px] font-black uppercase tracking-widest text-red-600 hover:underline disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-2"
+                                    >
+                                        {deletingId === n.id ? (
+                                            <>
+                                                <div className="w-3 h-3 border-2 border-red-600/30 border-t-red-600 rounded-full animate-spin" />
+                                                <span>Deleting...</span>
+                                            </>
+                                        ) : 'Delete Entry'}
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -145,7 +181,18 @@ export const NewsPage: React.FC = () => {
                                     <textarea rows={4} className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl outline-none font-medium text-sm" placeholder="Summary for the field wire..." value={form.excerpt} onChange={e => setForm({ ...form, excerpt: e.target.value })} />
                                 </div>
                             </div>
-                            <button type="submit" className="w-full py-5 bg-slate-900 text-white rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all">Publish to Network</button>
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full py-5 bg-slate-900 text-white rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        <span>Publishing...</span>
+                                    </>
+                                ) : 'Publish to Network'}
+                            </button>
                         </form>
                     </div>
                 </div>

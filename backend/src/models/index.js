@@ -36,9 +36,9 @@ export {
 };
 
 // Sync database
-export const syncDatabase = async (force = false) => {
+export const syncDatabase = async (alter = false) => {
     try {
-        await sequelize.sync({ force });
+        await sequelize.sync({ alter });
         console.log('✅ Database synchronized successfully.');
     } catch (error) {
         console.error('❌ Database sync error:', error.message);

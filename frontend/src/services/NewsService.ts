@@ -41,7 +41,7 @@ class NewsService {
                 const formData = new FormData();
                 formData.append('image', data.file);
                 Object.keys(data).forEach(key => {
-                    if (key !== 'file') {
+                    if (key !== 'file' && key !== 'image') {
                         formData.append(key, (data as any)[key]);
                     }
                 });
@@ -71,7 +71,7 @@ class NewsService {
                 const formData = new FormData();
                 formData.append('image', data.file);
                 Object.keys(data).forEach(key => {
-                    if (key !== 'file') {
+                    if (key !== 'file' && key !== 'image') {
                         formData.append(key, (data as any)[key]);
                     }
                 });

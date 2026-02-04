@@ -18,6 +18,8 @@ if (process.env.NODE_ENV === 'production') {
     };
 }
 
+
+
 const sequelize = new Sequelize(
     process.env.DB_NAME || 'hr_management',
     process.env.DB_USER || 'root',

@@ -5,25 +5,26 @@ import { useData } from '../../context/DataContext';
 import { getImageUrl } from '../../constants';
 
 export const ProfilePage: React.FC = () => {
-    const { currentUser } = useAuth();
-    const { updateCurrentProfile, resetDatabase } = useData();
+    const { currentUser, updateProfile } = useAuth();
+    const { resetDatabase } = useData();
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedName, setEditedName] = useState(currentUser?.name || '');
+    const [editedEmail, setEditedEmail] = useState(currentUser?.email || '');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const isRootAdmin = currentUser?.email === 'kennytohne@gmail.com';
 
     const handleUpdate = async (e: React.FormEvent) => {
         e.preventDefault();
-        await updateCurrentProfile({ name: editedName });
+        await updateProfile({ name: editedName, email: editedEmail });
         setIsEditing(false);
     };
 
     if (!currentUser) return null;
 
     return (
-        <div className="max-w-4xl animate-in fade-in duration-700">
+        <div className=" animate-in fade-in duration-700">
             <div className="bg-white rounded-[3rem] shadow-sm border border-slate-200 overflow-hidden">
                 <div className="h-44 bg-slate-900 relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent"></div>
@@ -46,7 +47,7 @@ export const ProfilePage: React.FC = () => {
                                 const file = e.target.files?.[0];
                                 if (file) {
                                     const reader = new FileReader();
-                                    reader.onloadend = () => updateCurrentProfile({
+                                    reader.onloadend = () => updateProfile({
                                         profilePicture: reader.result as string,
                                         file: file // Pass the file object
                                     } as any);
@@ -68,10 +69,14 @@ export const ProfilePage: React.FC = () => {
 
                     {isEditing ? (
                         <form onSubmit={handleUpdate} className="space-y-8 animate-in slide-in-from-top-4 duration-500">
-                            <div className="grid grid-cols-1 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-3">
                                     <label className="text-[10px] font-black uppercase text-slate-400 ml-1 tracking-widest">Legal Identity Alias</label>
                                     <input required type="text" value={editedName} onChange={(e) => setEditedName(e.target.value)} className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-black text-xl focus:ring-4 focus:ring-blue-500/10" />
+                                </div>
+                                <div className="space-y-3">
+                                    <label className="text-[10px] font-black uppercase text-slate-400 ml-1 tracking-widest">Secure Communication Channel</label>
+                                    <input required type="email" value={editedEmail} onChange={(e) => setEditedEmail(e.target.value)} className="w-full px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-black text-xl focus:ring-4 focus:ring-blue-500/10" />
                                 </div>
                             </div>
                             <button type="submit" className="px-12 py-5 bg-blue-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-blue-500/30 hover:bg-blue-700 transition-all flex items-center gap-3">

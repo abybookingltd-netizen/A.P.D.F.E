@@ -6,9 +6,11 @@ interface AuthContextType {
     currentUser: User | null;
     isAuthenticated: boolean;
     isLoading: boolean;
-    login: (email: string, password: string) => Promise<void>;
+    sendOTP: (email: string) => Promise<{ email: string; expiresIn: number }>;
+    verifyOTP: (email: string, otp: string) => Promise<void>;
     logout: () => Promise<void>;
-    registerStaff: (name: string, email: string, role: 'admin' | 'helper', password: string) => Promise<void>;
+    registerStaff: (name: string, email: string, role: 'admin' | 'helper') => Promise<void>;
+    updateProfile: (data: Partial<User> & { file?: File }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,14 +36,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsLoading(false);
     }, []);
 
-    const login = async (email: string, password: string) => {
+    const sendOTP = async (email: string) => {
         try {
-            const response = await AuthService.login(email, password);
+            const response = await AuthService.sendOTP(email);
+            return response;
+        } catch (error: any) {
+            console.error('Send OTP error:', error);
+            throw new Error(error.response?.data?.message || error.message || 'Failed to send OTP');
+        }
+    };
+
+    const verifyOTP = async (email: string, otp: string) => {
+        try {
+            const response = await AuthService.verifyOTP(email, otp);
             setCurrentUser(response.user);
             localStorage.setItem('APDFE_SESSION', JSON.stringify(response.user));
         } catch (error: any) {
-            console.error('Login error:', error);
-            throw new Error(error.message || 'Login failed');
+            console.error('Verify OTP error:', error);
+            throw new Error(error.response?.data?.message || 'OTP verification failed');
         }
     };
 
@@ -56,11 +68,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
-    const registerStaff = async (name: string, email: string, role: 'admin' | 'helper', password: string) => {
+    const registerStaff = async (name: string, email: string, role: 'admin' | 'helper') => {
         try {
-            await AuthService.registerStaff(name, email, role, password);
+            await AuthService.registerStaff(name, email, role);
         } catch (error: any) {
             console.error('Register staff error:', error);
+            throw new Error(error.response?.data?.message || 'Failed to register staff');
+        }
+    };
+
+    const updateProfile = async (data: Partial<User> & { file?: File }) => {
+        try {
+            // Import dynamically to avoid circular dependencies if any, though here it might be fine directly.
+            // Using direct import since UserService is a singleton instance.
+            const UserService = (await import('../services/UserService')).default;
+            const updatedUser = await UserService.updateProfile(data);
+
+            // Merge with existing user data to ensure we don't lose fields not returned
+            setCurrentUser(prev => {
+                if (!prev) return updatedUser;
+                const newUser = { ...prev, ...updatedUser };
+                localStorage.setItem('APDFE_SESSION', JSON.stringify(newUser));
+                return newUser;
+            });
+
+        } catch (error: any) {
+            console.error('Update profile error:', error);
             throw error;
         }
     };
@@ -71,9 +104,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 currentUser,
                 isAuthenticated: !!currentUser,
                 isLoading,
-                login,
+                sendOTP,
+                verifyOTP,
                 logout,
                 registerStaff,
+                updateProfile
             }}
         >
             {children}

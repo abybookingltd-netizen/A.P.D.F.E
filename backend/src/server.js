@@ -18,6 +18,7 @@ import volunteerRoutes from './routes/volunteers.js';
 import donationRoutes from './routes/donations.js';
 import expenseRoutes from './routes/expenses.js';
 import dashboardRoutes from './routes/dashboard.js';
+import helperRoutes from './routes/helpers.js';
 
 // Load environment variables
 dotenv.config();
@@ -65,6 +66,7 @@ app.use('/api/volunteers', volunteerRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/helpers', helperRoutes);
 
 // 404 handler
 app.use((req, res) => {
@@ -96,7 +98,7 @@ const startServer = async () => {
         }
 
         // Sync database (create tables if they don't exist)
-        await syncDatabase(false); // Set to true to drop and recreate tables
+        await syncDatabase(false); // Set to true to update tables
 
         // Start server
         app.listen(PORT, () => {

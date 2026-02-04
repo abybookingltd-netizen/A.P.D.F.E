@@ -50,6 +50,9 @@ interface DataContextType {
     addDonation: (item: Donation) => Promise<void>;
     addExpense: (item: Expense) => Promise<void>;
     addVolunteer: (item: Volunteer) => Promise<void>;
+    updateVolunteer: (id: string, updates: Partial<Volunteer>) => Promise<void>;
+    deleteVolunteer: (id: string) => Promise<void>;
+    approveVolunteer: (id: string) => Promise<void>;
     addEvent: (item: AppEvent) => Promise<void>;
     updateEvent: (id: string, updates: Partial<AppEvent>) => Promise<void>;
     deleteEvent: (id: string) => Promise<void>;
@@ -243,6 +246,21 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setVolunteers(prev => [newItem, ...prev]);
     };
 
+    const updateVolunteer = async (id: string, updates: Partial<Volunteer>) => {
+        const updated = await VolunteerService.update(id, updates);
+        setVolunteers(prev => prev.map(v => v.id === id ? updated : v));
+    };
+
+    const deleteVolunteer = async (id: string) => {
+        await VolunteerService.delete(id);
+        setVolunteers(prev => prev.filter(v => v.id !== id));
+    };
+
+    const approveVolunteer = async (id: string) => {
+        const approved = await VolunteerService.approve(id);
+        setVolunteers(prev => prev.map(v => v.id === id ? approved : v));
+    };
+
     // Donation operations
     const addDonation = async (item: Donation) => {
         const newItem = await DonationService.create(item);
@@ -329,6 +347,9 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 addDonation,
                 addExpense,
                 addVolunteer,
+                updateVolunteer,
+                deleteVolunteer,
+                approveVolunteer,
                 addEvent,
                 updateEvent,
                 deleteEvent,

@@ -42,6 +42,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isCollapsed 
         { name: 'Donation Intake', path: '/dashboard/donations', icon: <Wallet size={18} /> },
         { name: 'Expense Ledger', path: '/dashboard/finance', icon: <FileText size={18} /> },
         { name: 'Personnel Hub', path: '/dashboard/staff', icon: <ShieldCheck size={18} /> },
+        { name: 'Helper Management', path: '/dashboard/helpers', icon: <UserIcon size={18} /> },
     ];
 
     return (
