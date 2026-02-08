@@ -22,9 +22,9 @@ const seedDatabase = async () => {
         // Seed root admin user
         console.log('👤 Creating root admin user...');
         await User.create({
-            id: 'admin-root',
-            name: 'Serge ishimwe',
-            email: 'ishimweserge07@gmail.com',
+            id: `${Date.now()}`,
+            name: 'mable',
+            email: 'ishimwemable07@gmail.com',
             password: 'admin123', // Default password
             role: 'admin',
             isValidated: true

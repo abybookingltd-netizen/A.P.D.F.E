@@ -1,5 +1,5 @@
 // services/emailService.js
-import { Resend } from 'resend';
+import SibApiV3Sdk from 'sib-api-v3-sdk';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -13,14 +13,18 @@ const __dirname = path.dirname(__filename);
 
 class EmailService {
   constructor() {
-    // Initialize Resend with API key
-    this.resend = new Resend(process.env.RESEND_API_KEY);
-    this.fromEmail = process.env.EMAIL_FROM || 'APD FE <onboarding@resend.dev>';
+    // Initialize Brevo API client
+    const client = SibApiV3Sdk.ApiClient.instance;
+    client.authentications['api-key'].apiKey = process.env.BREVO_API_KEY;
 
-    if (!process.env.RESEND_API_KEY) {
-      console.warn('⚠️ RESEND_API_KEY not found in environment variables');
+    this.apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+    this.senderEmail = process.env.EMAIL_FROM || 'no-reply@brevo.com';
+    this.senderName = process.env.EMAIL_FROM_NAME || 'APD FE';
+
+    if (!process.env.BREVO_API_KEY) {
+      console.warn('⚠️ BREVO_API_KEY not found in environment variables');
     } else {
-      console.log('✅ Resend email service initialized');
+      console.log('✅ Brevo email service initialized');
     }
   }
 
@@ -56,23 +60,23 @@ class EmailService {
    * @param {string} options.subject - Email subject
    * @param {string} options.template - Template name (without extension)
    * @param {object} options.data - Data to inject into template
-   * @returns {Promise<object>} - Resend response
+   * @returns {Promise<object>} - Brevo response
    */
   async sendEmail({ to, subject, template, data }) {
     try {
       // Load and compile template
       const html = await this.loadTemplate(template, data);
 
-      // Send email using Resend
-      const result = await this.resend.emails.send({
-        from: this.fromEmail,
-        to,
+      // Send email using Brevo
+      const result = await this.apiInstance.sendTransacEmail({
+        sender: { email: this.senderEmail, name: this.senderName },
+        to: [{ email: to }],
         subject,
-        html,
+        htmlContent: html,
       });
 
-      console.log('Email sent successfully:', result.data?.id);
-      return { success: true, messageId: result.data?.id };
+      console.log('Email sent successfully:', result.messageId);
+      return { success: true, messageId: result.messageId };
     } catch (error) {
       console.error('Error sending email:', error);
       throw new Error('Failed to send email');
@@ -85,7 +89,7 @@ class EmailService {
    * @param {string} options.email - Helper's email address
    * @param {string} options.name - Helper's full name
    * @param {string} options.tempPassword - Temporary password
-   * @returns {Promise<object>} - Resend response
+   * @returns {Promise<object>} - Brevo response
    */
   async sendHelperWelcomeEmail({ email, name, tempPassword }) {
     try {
@@ -138,15 +142,15 @@ class EmailService {
         </html>
       `;
 
-      const result = await this.resend.emails.send({
-        from: this.fromEmail,
-        to: email,
+      const result = await this.apiInstance.sendTransacEmail({
+        sender: { email: this.senderEmail, name: this.senderName },
+        to: [{ email }],
         subject: 'Welcome to APD FE - Your Helper Account is Ready!',
-        html,
+        htmlContent: html,
       });
 
-      console.log('Welcome email sent successfully:', result.data?.id);
-      return { success: true, messageId: result.data?.id };
+      console.log('Welcome email sent successfully:', result.messageId);
+      return { success: true, messageId: result.messageId };
     } catch (error) {
       console.error('Error sending welcome email:', error);
       throw new Error('Failed to send welcome email');
