@@ -1,5 +1,5 @@
 // services/emailService.js
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -13,25 +13,15 @@ const __dirname = path.dirname(__filename);
 
 class EmailService {
   constructor() {
-    // Create transporter with your email service credentials
-    this.transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-      port: process.env.EMAIL_PORT || 465,
-      secure: true, // true for 465, false for other ports
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
+    // Initialize Resend with API key
+    this.resend = new Resend(process.env.RESEND_API_KEY);
+    this.fromEmail = process.env.EMAIL_FROM || 'APD FE <onboarding@resend.dev>';
 
-    // Verify transporter configuration
-    this.transporter.verify((error, success) => {
-      if (error) {
-        console.error('Email service configuration error:', error);
-      } else {
-        console.log('Email service is ready to send messages');
-      }
-    });
+    if (!process.env.RESEND_API_KEY) {
+      console.warn('⚠️ RESEND_API_KEY not found in environment variables');
+    } else {
+      console.log('✅ Resend email service initialized');
+    }
   }
 
   /**
@@ -66,31 +56,100 @@ class EmailService {
    * @param {string} options.subject - Email subject
    * @param {string} options.template - Template name (without extension)
    * @param {object} options.data - Data to inject into template
-   * @param {array} options.attachments - Optional attachments
-   * @returns {Promise<object>} - Nodemailer response
+   * @returns {Promise<object>} - Resend response
    */
-  async sendEmail({ to, subject, template, data, attachments = [] }) {
+  async sendEmail({ to, subject, template, data }) {
     try {
       // Load and compile template
       const html = await this.loadTemplate(template, data);
 
-      // Email options
-      const mailOptions = {
-        from: `"${process.env.EMAIL_FROM_NAME || 'APD FE'}" <${process.env.EMAIL_USER}>`,
+      // Send email using Resend
+      const result = await this.resend.emails.send({
+        from: this.fromEmail,
         to,
         subject,
         html,
-        attachments,
-      };
+      });
 
-      // Send email
-      const info = await this.transporter.sendMail(mailOptions);
-
-      console.log('Email sent successfully:', info.messageId);
-      return { success: true, messageId: info.messageId };
+      console.log('Email sent successfully:', result.data?.id);
+      return { success: true, messageId: result.data?.id };
     } catch (error) {
       console.error('Error sending email:', error);
       throw new Error('Failed to send email');
+    }
+  }
+
+  /**
+   * Send welcome email to new helper with temporary password
+   * @param {object} options - Email options
+   * @param {string} options.email - Helper's email address
+   * @param {string} options.name - Helper's full name
+   * @param {string} options.tempPassword - Temporary password
+   * @returns {Promise<object>} - Resend response
+   */
+  async sendHelperWelcomeEmail({ email, name, tempPassword }) {
+    try {
+      const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+            .password-box { background: white; border: 2px solid #667eea; padding: 20px; margin: 20px 0; border-radius: 8px; text-align: center; }
+            .password { font-size: 24px; font-weight: bold; color: #667eea; letter-spacing: 2px; }
+            .button { display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+            .footer { text-align: center; margin-top: 30px; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Welcome to APD FE! 🎉</h1>
+            </div>
+            <div class="content">
+              <h2>Hello ${name},</h2>
+              <p>Congratulations! Your volunteer application has been approved, and you've been added as a helper to our team.</p>
+              
+              <p>We've created an account for you. Here are your login credentials:</p>
+              
+              <div class="password-box">
+                <p style="margin: 0; font-size: 14px; color: #666;">Temporary Password</p>
+                <p class="password">${tempPassword}</p>
+              </div>
+              
+              <p><strong>Important:</strong> Please change your password after your first login for security purposes.</p>
+              
+              <p>You can now access the helper dashboard and start contributing to our mission.</p>
+              
+              <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/login" class="button">Login to Dashboard</a>
+              
+              <p>If you have any questions or need assistance, please don't hesitate to contact us.</p>
+              
+              <p>Best regards,<br>The APD FE Team</p>
+            </div>
+            <div class="footer">
+              <p>This is an automated message. Please do not reply to this email.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      const result = await this.resend.emails.send({
+        from: this.fromEmail,
+        to: email,
+        subject: 'Welcome to APD FE - Your Helper Account is Ready!',
+        html,
+      });
+
+      console.log('Welcome email sent successfully:', result.data?.id);
+      return { success: true, messageId: result.data?.id };
+    } catch (error) {
+      console.error('Error sending welcome email:', error);
+      throw new Error('Failed to send welcome email');
     }
   }
 }

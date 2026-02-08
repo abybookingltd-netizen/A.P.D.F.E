@@ -1,4 +1,6 @@
-import { Volunteer } from '../models/index.js';
+import { Volunteer, User } from '../models/index.js';
+import crypto from 'crypto';
+import emailService from '../services/emailService.js';
 
 // Get all volunteers
 export const getAllVolunteers = async (req, res) => {
@@ -151,12 +153,64 @@ export const approveVolunteer = async (req, res) => {
             });
         }
 
+        // Check if already approved
+        if (volunteer.isApproved) {
+            return res.status(400).json({
+                success: false,
+                message: 'Volunteer is already approved'
+            });
+        }
+
+        // Check if user with this email already exists
+        const existingUser = await User.findOne({ where: { email: volunteer.email } });
+        if (existingUser) {
+            return res.status(400).json({
+                success: false,
+                message: 'A user with this email already exists'
+            });
+        }
+
+        // Generate a temporary password
+        const tempPassword = crypto.randomBytes(8).toString('hex');
+
+        // Create helper account
+        const helper = await User.create({
+            id: `helper-${Date.now()}`,
+            name: `${volunteer.firstName} ${volunteer.lastName}`,
+            email: volunteer.email,
+            password: tempPassword,
+            role: 'helper',
+            isValidated: true
+        });
+
+        // Update volunteer status
         await volunteer.update({ isApproved: true });
+
+        // Send welcome email with temporary password
+        try {
+            await emailService.sendHelperWelcomeEmail({
+                email: helper.email,
+                name: helper.name,
+                tempPassword
+            });
+            console.log('Welcome email sent to:', helper.email);
+        } catch (emailError) {
+            console.error('Failed to send welcome email:', emailError);
+            // Don't fail the entire operation if email fails
+        }
 
         res.json({
             success: true,
-            message: 'Volunteer approved successfully',
-            data: volunteer
+            message: 'Volunteer approved and added as helper successfully',
+            data: {
+                volunteer,
+                helper: {
+                    id: helper.id,
+                    name: helper.name,
+                    email: helper.email,
+                    role: helper.role
+                }
+            }
         });
     } catch (error) {
         console.error('Approve volunteer error:', error);
