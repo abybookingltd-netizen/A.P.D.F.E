@@ -2,31 +2,31 @@ import React, { useState } from 'react';
 import { Shield, Heart, Users, CheckCircle, Mail, Phone, MapPin, Globe, X, Linkedin, Twitter } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { LazyImage } from '../components/LazyImage';
-import image1 from  '../assets/about.png'
+import image1 from '../assets/about.png'
 
 const TEAM_MEMBERS = [
-  { id: 'amina',    name: 'Amina N.',     role: 'Programs Director',          location: 'Rwanda',                  image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&h=400&fit=crop', bio: 'Leads multi-country program strategy with focus on GBV, psychosocial support and women’s economic empowerment in fragile contexts.' },
-  { id: 'john',     name: 'John K.',      role: 'Field Coordinator',          location: 'Kenya',                   image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&fit=crop', bio: 'Coordinates rapid emergency response, logistics and cross-border operations in conflict-affected areas.' },
-  { id: 'grace',    name: 'Grace M.',     role: 'MHPSS Lead',                 location: 'Uganda',                  image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Clinical psychologist delivering trauma-informed mental health and psychosocial support to survivors.' },
-  { id: 'pierre',   name: 'Pierre L.',    role: 'Logistics Manager',         location: 'DRC',                     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Manages supply chains, procurement and field logistics in high-risk humanitarian environments.' },
-  { id: 'marie',    name: 'Marie T.',     role: 'Safe Spaces Coord.',        location: 'Central African Rep.',    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Establishes and manages women & girls safe spaces in IDP camps and conflict zones.' },
-  { id: 'emmanuel', name: 'Emmanuel B.',  role: 'Finance Officer',           location: 'Republic of Congo',       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Oversees financial compliance, transparency and donor reporting across regional projects.' },
-  { id: 'chantal',  name: 'Chantal R.',   role: 'Health Program Lead',       location: 'Cameroon',                image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Leads mobile clinics, maternal/reproductive health and primary healthcare in crisis settings.' },
-  { id: 'samuel',   name: 'Samuel O.',    role: 'Monitoring Officer',        location: 'Tanzania',                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop', bio: 'Responsible for real-time data collection, beneficiary tracking and impact monitoring.' },
-  { id: 'fatou',    name: 'Fatou S.',     role: 'Communications',            location: 'Senegal',                 image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?q=80&w=400&h=400&fit=crop', bio: 'Manages storytelling, advocacy campaigns, media relations and external communications.' },
-  { id: 'kwame',    name: 'Kwame A.',     role: 'M&E Specialist',            location: 'Ghana',                   image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&fit=crop', bio: 'Designs monitoring & evaluation frameworks and drives data-informed decision making.' },
-  { id: 'aisha',    name: 'Aisha N.',     role: 'Education Coord.',          location: 'Nigeria',                 image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=400&h=400&fit=crop', bio: 'Coordinates literacy, foundational learning and girls’ education programs for displaced youth.' },
-  { id: 'hassan',   name: 'Hassan D.',    role: 'Agriculture Specialist',    location: 'Mali',                    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Develops climate-smart agriculture and food security programs in Sahel & conflict zones.' },
-  { id: 'selam',    name: 'Selam G.',     role: 'Advocacy Lead',             location: 'Ethiopia',                image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&h=400&fit=crop', bio: 'Leads policy advocacy and engagement with regional bodies on women’s rights & protection.' },
-  { id: 'abdi',     name: 'Abdi M.',      role: 'Programs Officer',          location: 'Somalia',                 image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&fit=crop', bio: 'Coordinates emergency relief, protection and community development in fragile contexts.' },
-  { id: 'ruth',     name: 'Ruth K.',      role: 'Protection Lead',           location: 'South Sudan',             image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Specializes in child protection, GBV prevention and case management in emergencies.' },
-  { id: 'omar',     name: 'Omar H.',      role: 'Operations Manager',        location: 'Sudan',                   image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Oversees field security, logistics planning and operational continuity in high-risk areas.' },
-  { id: 'lillian',  name: 'Lillian Z.',   role: 'HR & Training',             location: 'Zambia',                  image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Manages survivor-sensitive HR policies, staff training and regional capacity building.' },
-  { id: 'temba',    name: 'Temba S.',     role: 'Legal Advisor',             location: 'Zimbabwe',                image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Provides legal support, policy analysis and survivor-centered advocacy on human rights.' },
-  { id: 'marta',    name: 'Marta P.',     role: 'Communities Lead',          location: 'Mozambique',              image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Drives grassroots mobilization, community dialogue and local peacebuilding initiatives.' },
+  { id: 'amina', name: 'Amina N.', role: 'Programs Director', location: 'Rwanda', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&h=400&fit=crop', bio: 'Leads multi-country program strategy with focus on GBV, psychosocial support and women’s economic empowerment in fragile contexts.' },
+  { id: 'john', name: 'John K.', role: 'Field Coordinator', location: 'Kenya', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&fit=crop', bio: 'Coordinates rapid emergency response, logistics and cross-border operations in conflict-affected areas.' },
+  { id: 'grace', name: 'Grace M.', role: 'MHPSS Lead', location: 'Uganda', image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Clinical psychologist delivering trauma-informed mental health and psychosocial support to survivors.' },
+  { id: 'pierre', name: 'Pierre L.', role: 'Logistics Manager', location: 'DRC', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Manages supply chains, procurement and field logistics in high-risk humanitarian environments.' },
+  { id: 'marie', name: 'Marie T.', role: 'Safe Spaces Coord.', location: 'Central African Rep.', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Establishes and manages women & girls safe spaces in IDP camps and conflict zones.' },
+  { id: 'emmanuel', name: 'Emmanuel B.', role: 'Finance Officer', location: 'Republic of Congo', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Oversees financial compliance, transparency and donor reporting across regional projects.' },
+  { id: 'chantal', name: 'Chantal R.', role: 'Health Program Lead', location: 'Cameroon', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Leads mobile clinics, maternal/reproductive health and primary healthcare in crisis settings.' },
+  { id: 'samuel', name: 'Samuel O.', role: 'Monitoring Officer', location: 'Tanzania', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop', bio: 'Responsible for real-time data collection, beneficiary tracking and impact monitoring.' },
+  { id: 'fatou', name: 'Fatou S.', role: 'Communications', location: 'Senegal', image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?q=80&w=400&h=400&fit=crop', bio: 'Manages storytelling, advocacy campaigns, media relations and external communications.' },
+  { id: 'kwame', name: 'Kwame A.', role: 'M&E Specialist', location: 'Ghana', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&fit=crop', bio: 'Designs monitoring & evaluation frameworks and drives data-informed decision making.' },
+  { id: 'aisha', name: 'Aisha N.', role: 'Education Coord.', location: 'Nigeria', image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=400&h=400&fit=crop', bio: 'Coordinates literacy, foundational learning and girls’ education programs for displaced youth.' },
+  { id: 'hassan', name: 'Hassan D.', role: 'Agriculture Specialist', location: 'Mali', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Develops climate-smart agriculture and food security programs in Sahel & conflict zones.' },
+  { id: 'selam', name: 'Selam G.', role: 'Advocacy Lead', location: 'Ethiopia', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&h=400&fit=crop', bio: 'Leads policy advocacy and engagement with regional bodies on women’s rights & protection.' },
+  { id: 'abdi', name: 'Abdi M.', role: 'Programs Officer', location: 'Somalia', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&fit=crop', bio: 'Coordinates emergency relief, protection and community development in fragile contexts.' },
+  { id: 'ruth', name: 'Ruth K.', role: 'Protection Lead', location: 'South Sudan', image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Specializes in child protection, GBV prevention and case management in emergencies.' },
+  { id: 'omar', name: 'Omar H.', role: 'Operations Manager', location: 'Sudan', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Oversees field security, logistics planning and operational continuity in high-risk areas.' },
+  { id: 'lillian', name: 'Lillian Z.', role: 'HR & Training', location: 'Zambia', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Manages survivor-sensitive HR policies, staff training and regional capacity building.' },
+  { id: 'temba', name: 'Temba S.', role: 'Legal Advisor', location: 'Zimbabwe', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Provides legal support, policy analysis and survivor-centered advocacy on human rights.' },
+  { id: 'marta', name: 'Marta P.', role: 'Communities Lead', location: 'Mozambique', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Drives grassroots mobilization, community dialogue and local peacebuilding initiatives.' },
 
   // You asked to add one for Serge – example placement
-  { id: 'serge',    name: 'Serge B.',     role: 'Protection & Advocacy Officer', location: 'Burundi',             image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop', bio: 'Leads protection monitoring, community feedback mechanisms and advocacy in the Great Lakes region.' },
+  { id: 'serge', name: 'Serge B.', role: 'Protection & Advocacy Officer', location: 'Burundi', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop', bio: 'Leads protection monitoring, community feedback mechanisms and advocacy in the Great Lakes region.' },
 ];
 
 const TIMELINE_EVENTS = [
@@ -151,10 +151,10 @@ export const About = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { icon: <Users size={32} />,        title: "Survivor-Centered",   desc: "Our programs are designed BY survivors, FOR survivors." },
-            { icon: <Heart size={32} />,        title: "Dignity & Respect",   desc: "We restore hope, autonomy, and self-worth to those society has marginalized." },
-            { icon: <Shield size={32} />,       title: "Community-Led",       desc: "We empower local leaders and support grassroots solutions." },
-            { icon: <CheckCircle size={32} />,  title: "Do No Harm",          desc: "Safety, confidentiality, and trauma-informed care are at the heart of our work." }
+            { icon: <Users size={32} />, title: "Survivor-Centered", desc: "Our programs are designed BY survivors, FOR survivors." },
+            { icon: <Heart size={32} />, title: "Dignity & Respect", desc: "We restore hope, autonomy, and self-worth to those society has marginalized." },
+            { icon: <Shield size={32} />, title: "Community-Led", desc: "We empower local leaders and support grassroots solutions." },
+            { icon: <CheckCircle size={32} />, title: "Do No Harm", desc: "Safety, confidentiality, and trauma-informed care are at the heart of our work." }
           ].map((v, idx) => (
             <div key={idx} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 text-center hover:shadow-xl transition-all hover:-translate-y-2 group">
               <div className="text-blue-600 flex justify-center mb-8 group-hover:scale-110 transition-transform">{v.icon}</div>
@@ -175,9 +175,13 @@ export const About = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {TEAM_MEMBERS.map((member) => (
-              <div key={member.id} className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all group">
-                <div className="h-48 overflow-hidden relative">
+            {TEAM_MEMBERS.map((member, index) => (
+              <div
+                key={member.id}
+                className={`bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all group ${index < 2 ? 'lg:col-span-2' : ''
+                  }`}
+              >
+                <div className={`overflow-hidden relative ${index < 2 ? 'h-80' : 'h-48'}`}>
                   <LazyImage
                     src={member.image}
                     alt={member.name}
@@ -283,10 +287,10 @@ export const About = () => {
               <div className="grid grid-cols-2 gap-8">
                 {[
                   { name: 'Central African Republic', projects: '25,000+ Reached – 8 Safe Spaces' },
-                  { name: 'DR Congo (Eastern)',       projects: '28,000+ Reached – 12 Communities' },
-                  { name: 'Republic of Congo',        projects: '10,000+ Reached – 5 Centers' },
-                  { name: 'Cameroon',                 projects: '5,000+ Reached – 4 Clinics' },
-                  { name: 'Rwanda',                 projects: '2,000+ Reached – 4 Clinics' },
+                  { name: 'DR Congo (Eastern)', projects: '28,000+ Reached – 12 Communities' },
+                  { name: 'Republic of Congo', projects: '10,000+ Reached – 5 Centers' },
+                  { name: 'Cameroon', projects: '5,000+ Reached – 4 Clinics' },
+                  { name: 'Rwanda', projects: '2,000+ Reached – 4 Clinics' },
                 ].map((loc) => (
                   <div key={loc.name} className="space-y-2">
                     <div className="flex items-center gap-3">

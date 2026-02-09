@@ -23,6 +23,7 @@ const Contact = React.lazy(() => import('./pages/Contact').then(module => ({ def
 const Donate = React.lazy(() => import('./pages/Donate').then(module => ({ default: module.Donate })));
 const ThankYou = React.lazy(() => import('./pages/ThankYou').then(module => ({ default: module.ThankYou })));
 const Login = React.lazy(() => import('./pages/Login').then(module => ({ default: module.Login })));
+const UnauthorizedPage = React.lazy(() => import('./pages/UnauthorizedPage').then(module => ({ default: module.UnauthorizedPage })));
 
 // Dashboard pages
 const DashboardOverview = React.lazy(() => import('./pages/dashboard/DashboardOverview').then(module => ({ default: module.DashboardOverview })));
@@ -61,6 +62,7 @@ const App: React.FC = () => {
                   <Route path="/donate" element={<Donate />} />
                   <Route path="/thank-you" element={<ThankYou />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
                   {/* Protected Dashboard Routes */}
                   <Route
@@ -71,17 +73,64 @@ const App: React.FC = () => {
                       </ProtectedRoute>
                     }
                   >
-                    <Route index element={<DashboardOverview />} />
-                    <Route path="projects" element={<ProjectsPage />} />
-                    <Route path="news" element={<NewsPage />} />
-                    <Route path="gallery" element={<GalleryPage />} />
-                    <Route path="events" element={<EventsPage />} />
-                    <Route path="volunteers" element={<VolunteersPage />} />
-                    <Route path="donations" element={<DonationsPage />} />
-                    <Route path="finance" element={<ExpensesPage />} />
-                    <Route path="staff" element={<StaffPage />} />
-                    <Route path="helpers" element={<HelpersPage />} />
-                    <Route path="profile" element={<ProfilePage />} />
+                    {/* Routes accessible to both admin and helper */}
+                    <Route index element={
+                      <ProtectedRoute allowedRoles={['admin', 'helper']}>
+                        <DashboardOverview />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="projects" element={
+                      <ProtectedRoute allowedRoles={['admin', 'helper']}>
+                        <ProjectsPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="news" element={
+                      <ProtectedRoute allowedRoles={['admin', 'helper']}>
+                        <NewsPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="gallery" element={
+                      <ProtectedRoute allowedRoles={['admin', 'helper']}>
+                        <GalleryPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="events" element={
+                      <ProtectedRoute allowedRoles={['admin', 'helper']}>
+                        <EventsPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="profile" element={
+                      <ProtectedRoute allowedRoles={['admin', 'helper']}>
+                        <ProfilePage />
+                      </ProtectedRoute>
+                    } />
+
+                    {/* Admin-only routes */}
+                    <Route path="volunteers" element={
+                      <ProtectedRoute allowedRoles={['admin']}>
+                        <VolunteersPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="donations" element={
+                      <ProtectedRoute allowedRoles={['admin']}>
+                        <DonationsPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="finance" element={
+                      <ProtectedRoute allowedRoles={['admin']}>
+                        <ExpensesPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="staff" element={
+                      <ProtectedRoute allowedRoles={['admin']}>
+                        <StaffPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path="helpers" element={
+                      <ProtectedRoute allowedRoles={['admin']}>
+                        <HelpersPage />
+                      </ProtectedRoute>
+                    } />
                   </Route>
 
                   <Route

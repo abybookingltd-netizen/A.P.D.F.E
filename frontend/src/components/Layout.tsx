@@ -119,18 +119,15 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className={`max-w-7xl mx-auto px-4 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
+        <div className={` mx-auto px-4 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
           <Link to="/" className="flex items-center gap-3">
-            {/* <img
-              src="https://raw.githubusercontent.com/stackblitz/stackblitz-images/main/apdfe-logo.png"
+            <img
+              src="logo.jpg"
               alt="A.P.D.F.E Logo"
-              className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-7' : 'h-12'}`}
-              onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/48x48?text=AP'; }}
-            /> */}
-            <div className="flex flex-col">
-              <span className={`font-black tracking-tight text-blue-900 leading-none transition-all duration-300 ${isScrolled ? 'text-lg' : 'text-xl'}`}>A.P.D.F.E</span>
-              {!isScrolled && <span className="text-[9px] uppercase font-black text-green-600 tracking-widest mt-0.5">Building Better Futures</span>}
-            </div>
+              className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-10 scale-115' : 'h-13 scale-120'}`}
+             
+            />
+           
           </Link>
 
           {/* Desktop Links */}

@@ -89,6 +89,7 @@ export const GalleryPage: React.FC = () => {
                 {(gallery || []).map((item) => (
                     <div key={item.id} className="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden group">
                         <div className="h-48 overflow-hidden relative">
+                            
                             <img src={getImageUrl(item.img)} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
                                 <button

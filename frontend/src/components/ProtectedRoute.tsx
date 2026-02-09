@@ -25,8 +25,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowe
     }
 
     if (allowedRoles && !allowedRoles.includes(currentUser.role)) {
-        // If user is authenticated but doesn't have the right role, redirect to a safe place (like home or a forbidden page)
-        return <Navigate to="/" replace />;
+        // If user is authenticated but doesn't have the right role, redirect to unauthorized page
+        return <Navigate to="/unauthorized" replace />;
     }
 
     return <>{children}</>;

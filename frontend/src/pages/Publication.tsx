@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, Image as ImageIcon, Briefcase, FileText, CheckCircle, Search, Sparkles, Clock, MapPin } from 'lucide-react';
 import { useData } from '../context/DataContext';
+import { getImageUrl } from '../constants';
 
 export const Publication = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,7 +67,7 @@ export const Publication = () => {
             {filteredNews.map((item) => (
               <article key={item.id} className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all group flex flex-col border border-slate-100 relative">
                 <div className="h-64 relative overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+                  <img src={getImageUrl(item.image)} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
                 </div>
                 <div className="p-10">
                   <div className="flex items-center gap-2 text-slate-400 text-[10px] font-black mb-4 uppercase tracking-widest">
@@ -97,7 +98,7 @@ export const Publication = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredGallery.map((img) => (
               <div key={img.id} className="aspect-square rounded-3xl overflow-hidden group relative border border-slate-100">
-                <img src={img.url} alt={img.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img src={getImageUrl(img.img)} alt={img.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
                   <h4 className="text-white font-black text-sm mb-1 uppercase tracking-tight">{img.title}</h4>
                   <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest">{img.subtitle}</p>
