@@ -183,11 +183,11 @@ export const About = () => {
                 className={`bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all group ${index < 2 ? 'lg:col-span-2' : ''
                   }`}
               >
-                <div className={`overflow-hidden relative ${index < 2 ? 'h-80' : 'h-48'}`}>
+                <div className={`overflow-hidden relative ${index < 2 ? 'h-[60vh]' : 'h-48'}`}>
                   <LazyImage
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
                     containerClassName="w-full h-full"
                   />
                   <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[8px] font-black text-white uppercase tracking-widest">
@@ -214,7 +214,7 @@ export const About = () => {
       {selectedMember && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-500 ease-out" onClick={() => setSelectedMember(null)} />
-          <div className="relative w-full max-w-2xl bg-white rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in duration-500 ease-out">
+          <div className="relative  max-w-7xl  bg-white rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in duration-500 ease-out">
             <button
               onClick={() => setSelectedMember(null)}
               className="absolute top-6 right-6 p-2 bg-slate-50 hover:bg-slate-900 hover:text-white rounded-full transition-all z-10"
@@ -222,7 +222,7 @@ export const About = () => {
               <X size={20} />
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="h-80 md:h-auto overflow-hidden">
+              <div className="h-[80vh] overflow-hidden">
                 <LazyImage
                   src={selectedMember.image}
                   alt={selectedMember.name}
