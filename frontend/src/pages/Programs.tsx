@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { LazyImage } from '../components/LazyImage';
+import { HeaderBanner } from '../components/HeaderBanner';
+import bgPrograms from '../assets/others/IMG_6725.jpg';
 
 // Map string icon names from data → actual Lucide components
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -32,15 +34,12 @@ export const Programs = () => {
       />
 
       {/* Hero */}
-      <section id="programs-hero" className="bg-slate-900 py-24 md:py-32 text-white text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 to-slate-900/60 z-0" />
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">Our Programs</h1>
-          <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto font-light leading-relaxed">
-            Holistic, survivor-centered, and community-driven interventions transforming lives across Central Africa.
-          </p>
-        </div>
-      </section>
+      <HeaderBanner
+        title="Our Programs"
+        subtitle="Holistic, survivor-centered, and community-driven interventions transforming lives across Central Africa."
+        bgImage={bgPrograms}
+        bgOverlay="bg-slate-900/85"
+      />
 
       {/* Main Content */}
       <section className="py-20 md:py-28 max-w-7xl mx-auto px-4">
@@ -104,7 +103,7 @@ export const Programs = () => {
 
                   {/* Highlights */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {program.highlights.slice(0,4).map((highlight, dIdx) => (
+                    {program.highlights.slice(0, 4).map((highlight, dIdx) => (
                       <div
                         key={dIdx}
                         className="flex items-start gap-3 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-200 transition-all duration-300"

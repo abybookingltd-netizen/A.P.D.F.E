@@ -1,23 +1,59 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
-import { IMPACT_DATA, TIMELINE_EVENTS } from '../constants';
+import { IMPACT_DATA } from '../constants';
+import { SUCCESS_STORIES } from '../constants/stories';
 import { TrendingUp, MapPin, Users, Heart, Star, FileText, Image as ImageIcon, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { LazyImage } from '../components/LazyImage';
+import { HeaderBanner } from '../components/HeaderBanner';
+
+// Using IMG_6913.jpg for impact
+import bgImpact from '../assets/others/IMG_6913.jpg';
+
+import img6561 from '../assets/others/IMG_6561.jpg';
+import img6563 from '../assets/others/IMG_6563.jpg';
+import img6680 from '../assets/others/IMG_6680.jpg';
+import img6683 from '../assets/others/IMG_6683.jpg';
+import img6723 from '../assets/others/IMG_6723.jpg';
+import img6725 from '../assets/others/IMG_6725.jpg';
+import img6730 from '../assets/others/IMG_6730.jpg';
+import img6740 from '../assets/others/IMG_6740.jpg';
+import img6748 from '../assets/others/IMG_6748.jpg';
+import img6898 from '../assets/others/IMG_6898.jpg';
+import img6913 from '../assets/others/IMG_6913.jpg';
+import img6919 from '../assets/others/IMG_6919.jpg';
+import img6924 from '../assets/others/IMG_6924.jpg';
+import img7044 from '../assets/others/IMG_7044.jpg';
+import img7051 from '../assets/others/IMG_7051.jpg';
+import img7055 from '../assets/others/IMG_7055.jpg';
+import img7060 from '../assets/others/IMG_7060.jpg';
+import img7067 from '../assets/others/IMG_7067.jpg';
+import img70602 from '../assets/others/IMG_70602.jpeg';
 
 export const Impact = () => {
-  const [selectedYear, setSelectedYear] = useState('2024');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const galleryImages = [
-    "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1524069290683-0457abfe42c3?q=80&w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1504159506876-f8338247a14a?q=80&w=600&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=600&h=600&fit=crop"
+    img6561,
+    img6563,
+    img6680,
+    img6683,
+    img6723,
+    img6725,
+    img6730,
+    img6740,
+    img6748,
+    img6898,
+    img6913,
+    img6919,
+    img6924,
+    img7044,
+    img7051,
+    img7055,
+    img7060,
+    img7067,
+    img70602
   ];
 
   const nextImage = (e: React.MouseEvent) => {
@@ -69,7 +105,7 @@ export const Impact = () => {
 
           <div className="relative max-w-5xl max-h-[85vh] w-full flex items-center justify-center pointer-events-none">
             <img
-              src={galleryImages[lightboxIndex].replace('h=600&', 'h=1200&').replace('w=600&', 'w=1600&')}
+              src={galleryImages[lightboxIndex]}
               alt="Field Work Enlarged"
               className="max-w-full max-h-full object-contain rounded-xl shadow-2xl animate-in zoom-in duration-500 pointer-events-auto"
             />
@@ -87,14 +123,13 @@ export const Impact = () => {
         </div>
       )}
 
-      <section className="bg-slate-900 py-24 text-white text-center">
-        <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-5xl font-black mb-6 tracking-tight">Impact & Transformation</h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto font-light">
-            Evidence-based growth and survivor-led change across Central Africa.
-          </p>
-        </div>
-      </section>
+      {/* Hero */}
+      <HeaderBanner
+        title="Our Impact"
+        subtitle="Numbers tell part of the story, but the real impact is measured in the lives rebuilt, policies changed, and communities strengthened."
+        bgImage={bgImpact}
+        bgOverlay="bg-blue-950/80"
+      />
 
       {/* Statistics Section */}
       <section id="statistics" className="py-24">
@@ -165,27 +200,8 @@ export const Impact = () => {
           <p className="mt-4 text-slate-500 font-bold uppercase tracking-widest text-[10px]">Real lives transformed by survivor-led action</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {[
-            {
-              name: "Marie's Journey",
-              location: "Eastern DRC",
-              text: "After losing everything to conflict, Marie found hope through our economic empowerment program. She now runs a successful local cooperative.",
-              img: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=600&fit=crop"
-            },
-            {
-              name: "Jean's Education",
-              location: "CAR",
-              text: "A former child soldier, Jean is now back in school and excelling in his studies through our rehabilitation and scholarship program.",
-              img: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=600&fit=crop"
-            },
-            {
-              name: "Healing Together",
-              location: "Rwanda",
-              text: "A group of 20 survivors formed a community healing circle that now supports over 200 women in their district.",
-              img: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=600&fit=crop"
-            }
-          ].map((story, i) => (
-            <div key={i} className="bg-white rounded-[3rem] overflow-hidden shadow-sm border border-slate-100 group hover:shadow-2xl transition-all">
+          {SUCCESS_STORIES.slice(0, 3).map((story, i) => (
+            <Link to={`/story/${story.id}`} key={i} className="bg-white rounded-[3rem] overflow-hidden shadow-sm border border-slate-100 group hover:shadow-2xl transition-all block cursor-pointer">
               <div className="h-64 overflow-hidden">
                 <LazyImage
                   src={story.img}
@@ -198,10 +214,10 @@ export const Impact = () => {
                 <div className="flex items-center gap-2 text-blue-600 font-black text-[10px] uppercase tracking-widest mb-4">
                   <Star size={14} /> {story.location}
                 </div>
-                <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">{story.name}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed font-medium">{story.text}</p>
+                <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">{story.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed font-medium line-clamp-3">{story.shortText}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, Phone, Menu, X, Facebook, Twitter, Instagram, Heart, User, Calendar, ChevronDown } from 'lucide-react';
+import { Mail, Phone, Menu, X, Facebook, Instagram, Heart, User, ChevronDown } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useData } from '../context/DataContext';
 import { LoadingScreen } from './LoadingScreen';
@@ -9,17 +9,28 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [openSection, setOpenSection] = useState<string | null>(null);
   const location = useLocation();
   const { currentUser } = useAuth();
   const dropdownTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile sidebar is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  // Close sidebar and reset accordion on route change
+  useEffect(() => {
+    setIsOpen(false);
+    setOpenSection(null);
+  }, [location.pathname]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -76,16 +87,17 @@ const Navbar = () => {
   };
 
   const handleMouseLeave = () => {
-    dropdownTimer.current = setTimeout(() => {
-      setActiveDropdown(null);
-    }, 150);
+    dropdownTimer.current = setTimeout(() => setActiveDropdown(null), 150);
   };
+
+  const toggleSection = (name: string) =>
+    setOpenSection((prev) => (prev === name ? null : name));
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
     <>
-      {/* Background Overlay */}
+      {/* Desktop dropdown backdrop */}
       {activeDropdown && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 animate-in fade-in"
@@ -93,15 +105,15 @@ const Navbar = () => {
         />
       )}
 
-      <nav className={`sticky top-0 z-50 bg-white shadow-md transition-all duration-300`}>
+      <nav className="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
         {/* Top Bar */}
         <div className={`bg-slate-900 text-white px-6 flex justify-between items-center text-xs transition-all duration-500 ease-in-out ${isScrolled ? 'h-7 opacity-80' : 'h-10 opacity-100'}`}>
           <div className="flex gap-4">
-            <a href="mailto:info@apdfe.org" className="flex items-center gap-2 hover:text-green-400 transition-colors">
-              <Mail size={12} /> <span className={isScrolled ? 'hidden sm:inline' : ''}>info@apdfe.org</span>
+            <a href="mailto:apdfe19@gmail.com" className="flex items-center gap-2 hover:text-green-400 transition-colors">
+              <Mail size={12} /> <span className={isScrolled ? 'hidden sm:inline' : ''}>apdfe19@gmail.com</span>
             </a>
-            <a href="tel:+250788123456" className="flex items-center gap-2 hover:text-green-400 transition-colors">
-              <Phone size={12} /> <span className={isScrolled ? 'hidden sm:inline' : ''}>+250 788 123 456</span>
+            <a href="tel:+250788219724" className="flex items-center gap-2 hover:text-green-400 transition-colors">
+              <Phone size={12} /> <span className={isScrolled ? 'hidden sm:inline' : ''}>+250 788 219 724 / +236 74 89 66 50</span>
             </a>
           </div>
           <div className="flex gap-4 items-center">
@@ -119,15 +131,13 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className={` mx-auto px-4 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
+        <div className={`mx-auto px-4 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
           <Link to="/" className="flex items-center gap-3">
             <img
               src="logo.jpg"
               alt="A.P.D.F.E Logo"
               className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-10 scale-115' : 'h-13 scale-120'}`}
-             
             />
-           
           </Link>
 
           {/* Desktop Links */}
@@ -144,10 +154,12 @@ const Navbar = () => {
                   className={`text-[11px] uppercase tracking-widest font-black transition-all duration-500 ease-in-out hover:text-blue-600 flex items-center gap-1 hover:scale-105 active:scale-95 transform ${isActive(link.path) ? 'text-blue-600' : 'text-slate-500'}`}
                 >
                   {link.name}
-                  {link.dropdown && <ChevronDown size={10} className={`transition-transform duration-300 ease-in-out ${activeDropdown === link.name ? 'rotate-180' : ''}`} />}
+                  {link.dropdown && (
+                    <ChevronDown size={10} className={`transition-transform duration-300 ease-in-out ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
+                  )}
                 </Link>
 
-                {/* Dropdown Menu */}
+                {/* Desktop Dropdown */}
                 {link.dropdown && activeDropdown === link.name && (
                   <div className="absolute top-[calc(100%+15px)] left-1/2 -translate-x-1/2 w-64 bg-white shadow-2xl rounded-2xl border-t-4 border-blue-600 py-4 animate-in fade-in slide-in-from-top-4 duration-300 ease-out z-[60]">
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-blue-600 rotate-45"></div>
@@ -170,46 +182,114 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button className="md:hidden p-2 text-slate-900" onClick={() => setIsOpen(!isOpen)}>
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden p-2 text-slate-900 hover:text-blue-600 transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
+      </nav>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-white border-t p-6 shadow-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300 max-h-[80vh] overflow-y-auto">
-            {navLinks.map((link) => (
-              <div key={link.path + link.name} className="flex flex-col">
+      {/* ── Mobile Sidebar Backdrop ─────────────────────────────── */}
+      <div
+        className={`fixed inset-0 z-[90] bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* ── Mobile Sidebar Panel ────────────────────────────────── */}
+      <aside
+        className={`fixed top-0 right-0 z-[100] h-full w-[85vw] max-w-sm bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out md:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-slate-50">
+          <Link to="/" onClick={() => setIsOpen(false)}>
+            <img src="logo.jpg" alt="APDFE" className="h-10 w-auto object-contain" />
+          </Link>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="p-2 rounded-full hover:bg-slate-200 transition-colors"
+            aria-label="Close menu"
+          >
+            <X size={22} className="text-slate-700" />
+          </button>
+        </div>
+
+        {/* Nav Links (scrollable) */}
+        <nav className="flex-1 overflow-y-auto py-4 px-4 space-y-0.5">
+          {navLinks.map((link) => (
+            <div key={link.path + link.name}>
+              {link.dropdown ? (
+                <>
+                  <button
+                    onClick={() => toggleSection(link.name)}
+                    className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-black uppercase tracking-widest transition-colors ${isActive(link.path) ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:bg-slate-50'
+                      }`}
+                  >
+                    {link.name}
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform duration-300 ${openSection === link.name ? 'rotate-180 text-blue-500' : 'text-slate-400'
+                        }`}
+                    />
+                  </button>
+
+                  {/* Accordion Sub-items */}
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${openSection === link.name ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                      }`}
+                  >
+                    <div className="pl-4 pb-2 pt-0.5 flex flex-col gap-0.5">
+                      {link.dropdown.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          to={sub.path}
+                          onClick={() => setIsOpen(false)}
+                          className="block px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              ) : (
                 <Link
                   to={link.path}
-                  onClick={() => !link.dropdown && setIsOpen(false)}
-                  className={`text-sm font-black uppercase tracking-widest py-3 border-b border-slate-50 flex justify-between items-center ${isActive(link.path) ? 'text-blue-600' : 'text-slate-600'}`}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center px-4 py-3.5 rounded-xl text-sm font-black uppercase tracking-widest transition-colors ${isActive(link.path) ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:bg-slate-50'
+                    }`}
                 >
                   {link.name}
                 </Link>
-                {link.dropdown && (
-                  <div className="pl-4 flex flex-col bg-slate-50/50">
-                    {link.dropdown.map((subItem) => (
-                      <Link
-                        key={subItem.name}
-                        to={subItem.path}
-                        onClick={() => setIsOpen(false)}
-                        className="text-[10px] uppercase font-bold tracking-widest py-3 border-b border-slate-100 text-slate-500 hover:text-blue-600"
-                      >
-                        {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <Link to="/donate" onClick={() => setIsOpen(false)} className="bg-green-500 text-white px-6 py-4 rounded-xl text-center font-black uppercase tracking-widest">
-              Donate Now
-            </Link>
+              )}
+            </div>
+          ))}
+        </nav>
+
+        {/* Sidebar Footer */}
+        <div className="px-6 py-6 border-t border-slate-100 bg-slate-50 space-y-4">
+          <Link
+            to="/donate"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center justify-center gap-2 w-full py-4 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-md"
+          >
+            <Heart size={18} /> Donate Now
+          </Link>
+          <div className="flex flex-col gap-2 text-xs text-slate-500 font-medium">
+            <a href="mailto:apdfe19@gmail.com" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+              <Mail size={14} className="text-green-500" /> apdfe19@gmail.com
+            </a>
+            <a href="tel:+250788219724" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+              <Phone size={14} className="text-green-500" /> +250 788 219 724 / +236 74 89 66 50
+            </a>
           </div>
-        )}
-      </nav>
+        </div>
+      </aside>
     </>
   );
 };
@@ -217,13 +297,12 @@ const Navbar = () => {
 const Footer = () => {
   return (
     <footer className="bg-slate-900 text-slate-300 pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div className="mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="space-y-6">
           <div className="flex items-center gap-3">
-            <div className="bg-white p-2 rounded-lg">
-              <img src="https://raw.githubusercontent.com/stackblitz/stackblitz-images/main/apdfe-logo.png" alt="Logo" className="h-10 w-auto" />
+            <div className="bg-white p-2 rounded-xl">
+              <img src="logo.jpg" alt="A.P.D.F.E Logo" className="h-10 w-auto object-contain" />
             </div>
-            <span className="text-2xl font-black text-white tracking-tight">A.P.D.F.E</span>
           </div>
           <p className="text-sm leading-relaxed font-medium">
             Empowering women and children across Central Africa through survivor-led initiatives in health, education, and peace-building.
@@ -240,8 +319,8 @@ const Footer = () => {
             <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
             <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
             <li><Link to="/programs" className="hover:text-white transition-colors">Programs</Link></li>
-            <li><Link to="/events" className="hover:text-white transition-colors">Field Events</Link></li>
-            <li><Link to="/publication" className="hover:text-white transition-colors">Intelligence Hub</Link></li>
+            <li><Link to="/impact" className="hover:text-white transition-colors">Impact</Link></li>
+            <li><Link to="/publication" className="hover:text-white transition-colors">Publication</Link></li>
           </ul>
         </div>
 
@@ -258,11 +337,11 @@ const Footer = () => {
         <div>
           <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Dispatch HQ</h4>
           <ul className="space-y-5 text-sm font-medium">
-            <li className="flex items-center gap-3"><Mail size={16} className="text-green-500" /> info@apdfe.org</li>
-            <li className="flex items-center gap-3"><Phone size={16} className="text-green-500" /> +250 788 123 456</li>
+            <li className="flex items-center gap-3"><Mail size={16} className="text-green-500" /> apdfe19@gmail.com</li>
+            <li className="flex items-center gap-3"><Phone size={16} className="text-green-500" /> +250 788 219 724 / +236 74 89 66 50</li>
             <li className="flex items-start gap-3">
               <span className="text-green-500 text-lg">📍</span>
-              Kigali, Rwanda<br />Regional Coordination Center
+              Kigali-Rwanda, Goma-DRC<br />Bangui-RCA, Brazzaville-Congo
             </li>
           </ul>
         </div>
@@ -284,18 +363,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.substring(1);
-      // Small delay to ensure the DOM has rendered the new page content
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
           const navbarHeight = 100;
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
       }, 200);
     } else {
@@ -307,7 +381,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     <div className="flex flex-col min-h-screen animate-in fade-in duration-1000">
       {isLoading && <LoadingScreen />}
       {!isDashboard && <Navbar />}
-      <main className="flex-grow">
+      <main className="grow">
         {children}
       </main>
       {!isDashboard && <Footer />}

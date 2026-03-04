@@ -1,9 +1,11 @@
 // src/data/programs.ts
 
-import image1 from '../assets/program/image1.png'
-import image2 from '../assets/program/image2.png'
-import image3 from '../assets/program/image3.png'
-import image4 from '../assets/program/image4.png'
+import image1 from '../assets/program/image1.png';
+import educationImg from '../assets/programs/education.jpeg';
+import environmentImg from '../assets/programs/Environmental .png';
+import peaceImg from '../assets/programs/peace.jpeg';
+import rightsImg from '../assets/programs/rights.jpeg';
+import womenImg from '../assets/programs/women.jpeg';
 
 
 export type Program = {
@@ -38,7 +40,7 @@ Gender-based violence (GBV), early and forced marriage, and lack of reproductive
 The psychological toll of prolonged exposure to violence, loss, displacement, and uncertainty is immense. Depression, anxiety, post-traumatic stress disorder (PTSD), and suicidal ideation are widespread, yet mental health services remain scarce, heavily stigmatized, and rarely funded in humanitarian responses.
 
 APDFE adopts an integrated, survivor-centered, and community-based health approach. We deploy mobile clinics to reach remote and displaced populations, train and supervise community health workers (many of them women from the communities served), provide trauma-informed mental health and psychosocial support (MHPSS), and establish referral pathways to higher-level care when possible. All interventions prioritize dignity, confidentiality, cultural sensitivity, and do-no-harm principles, ensuring that health services contribute to both immediate survival and long-term resilience.`,
-    image: image1 ,
+    image: image1,
     highlights: [
       "Mobile clinics reaching remote displacement sites",
       "Nutrition screening & treatment for children under 5",
@@ -89,7 +91,7 @@ Economic disempowerment perpetuates cycles of dependency, early marriage, transa
 APDFE’s economic empowerment program is designed to be holistic, market-driven, and survivor-sensitive. We deliver vocational training in locally viable trades, entrepreneurship and business management courses, financial literacy and savings group formation (using the Village Savings & Loan Association model), provision of start-up kits or small seed grants, mentorship from successful local entrepreneurs, and support for collective marketing through women- and youth-led cooperatives.
 
 Special attention is given to reducing gender barriers: we engage male partners and community leaders to support women’s economic participation, provide childcare during training sessions, and ensure safe transportation for participants in insecure areas. Many graduates go on to employ others, form thriving micro-enterprises, and serve as role models — demonstrating that economic dignity is a powerful pathway to broader empowerment and peace.`,
-    image: image1,
+    image: womenImg,
     highlights: [
       "Market-relevant vocational training (tailoring, agriculture, small trade, cosmetics)",
       "Entrepreneurship & business planning bootcamps",
@@ -137,7 +139,7 @@ APDFE adopts a community-based, systems-strengthening approach to child protecti
 Equally important is our focus on child rights governance and participation. We create safe platforms for children and adolescents to express their views, support child-led clubs and peer education initiatives, engage children in community dialogues on issues affecting them, and advocate for child-sensitive policies and resource allocation at local and national levels.
 
 By combining prevention, response, and empowerment, we aim to create protective environments where every child can survive, learn, develop, and participate — laying the foundation for a more just and peaceful future.`,
-    image: image2,
+    image: rightsImg,
     highlights: [
       "Community child protection committee training & activation",
       "Child-friendly spaces in camps and host communities",
@@ -188,7 +190,7 @@ Climate change compounds these challenges: erratic rainfall, prolonged dry spell
 APDFE integrates environmental protection and climate resilience across all programming while also running dedicated initiatives. We promote climate-smart agriculture (improved seeds, agroforestry, soil & water conservation), support community-led reforestation and watershed protection, raise awareness on environmental health (waste management, hygiene), and empower women and youth to lead green micro-enterprises (beekeeping, solar products, briquette production).
 
 Our approach is participatory and rights-based: communities identify priorities, lead implementation, and benefit directly from improved natural resources and alternative livelihoods — ensuring ownership and sustainability even after projects end.`,
-    image: image3   ,
+    image: environmentImg,
     highlights: [
       "Climate-smart agriculture training & demonstration plots",
       "Community-led tree planting & agroforestry",
@@ -233,7 +235,7 @@ In many areas, net enrollment rates remain far below regional averages, with gir
 APDFE’s education program focuses on reaching the most excluded: adolescent girls, young mothers, displaced children, and youth who have missed years of schooling. We offer accelerated learning programs that condense primary-level content into shorter cycles, combined with foundational literacy & numeracy, life skills (health, rights, decision-making), and vocational orientation. We distribute scholastic materials, provide sanitary pads and hygiene kits to improve girls’ attendance, establish temporary learning spaces in displacement sites, and support reintegration into formal schools where possible.
 
 We also run community awareness campaigns to shift norms around girls’ education and engage parents, traditional leaders, and husbands in supporting retention and completion. Long-term, we advocate for inclusive education policies and increased investment in conflict-affected areas.`,
-    image: image1,
+    image: educationImg,
     highlights: [
       "Accelerated learning for out-of-school children & youth",
       "Foundational literacy & numeracy for adolescent girls & women",
@@ -278,7 +280,7 @@ Women and young people — who suffer disproportionately from violence and displ
 APDFE believes sustainable peace requires addressing root causes: inequality, exclusion, unresolved grievances, and lack of inclusive governance. Our peace-building approach is multi-layered: we facilitate structured inter-community dialogues to rebuild trust and address shared problems (water points, grazing land, markets); train women and youth as mediators and peace advocates; support local peace committees and early warning mechanisms; deliver conflict sensitivity and do-no-harm training to community leaders and service providers; and advocate for greater inclusion of marginalized voices in local governance processes.
 
 We also integrate peacebuilding into other programs — for example, ensuring economic empowerment activities bring together members of different groups, or using child-friendly spaces as neutral venues for cross-community interaction. By centering women, youth, and survivors in peace efforts, we help build more equitable, resilient, and cohesive societies capable of preventing relapse into violence.`,
-    image: image4,
+    image: peaceImg,
     highlights: [
       "Inter-community dialogue & trust-building sessions",
       "Women & youth mediator & peace advocate training",

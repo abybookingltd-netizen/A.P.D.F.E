@@ -1,16 +1,34 @@
 import React, { useState } from 'react';
-import { Shield, Heart, Users, CheckCircle, Mail, Phone, MapPin, Globe, X, Linkedin, Twitter } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import {
+  Shield,
+  Heart,
+  Users,
+  CheckCircle,
+  Mail,
+  Phone,
+  MapPin,
+  Globe,
+  X,
+  Linkedin,
+  Twitter,
+  ArrowRight
+} from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { LazyImage } from '../components/LazyImage';
+import { HeaderBanner } from '../components/HeaderBanner';
+import bgAbout from '../assets/others/IMG_6409.jpg';
+
+// Images
 import image1 from '../assets/about.png'
 import person1 from '../assets/about/person1.png'
 import person2 from '../assets/about/person2.png'
 
 const TEAM_MEMBERS = [
-  { id: 'amina', name: 'Mr. Adelithe MUGABO ', role: 'Founder and Vice President of Action Pour le Développement de la Femme et de l’Enfant (APDFE)', location: 'Rwanda', image: person1, bio: 'Mr. Adelithe Mugabo is a gender and child rights specialist with extensive experience in program implementation, research, and humanitarian response. He holds a Bachelor’s Degree in Information and Management from AUCA and a Master’s Degree in Development Studies from ULK, and is currently pursuing a Master’s in International Cooperation and Humanitarian Aid. He serves as an independent consultant in fundraising and resource mobilization, Secretary General and Co-Founder of Africa Partners Development, and a board member of PDI-Africa. His work focuses on empowering vulnerable women, children, and youth across Africa. ' },
-  { id: 'john', name: 'Mrs. Princia Koronado ', role: 'Co-Founder & Women’s Rights Advocate', location: 'Kenya', image: person2, bio: 'Mrs. Princia Koronado is a dedicated women’s rights advocate and educator with a Bachelor’s Degree in Teaching from the University of Bangui. She has served as a primary school teacher in conflict-affected areas and worked as a community health worker providing support to women and girls with limited access to health services. A survivor of intercommunal violence, she co-founded APDFE in 2019 to promote empowerment, protection, and dignity for women and children across Afric' },
+  { id: 'amina', name: 'Mr. Adelithe MUGABO ', size: 2, h_size: 60, role: 'Founder and Vice President of Action Pour le Développement de la Femme et de l’Enfant (APDFE)', location: 'Rwanda', image: person1, bio: 'Mr. Adelithe Mugabo is a gender and child rights specialist with extensive experience in program implementation, research, and humanitarian response. He holds a Bachelor’s Degree in Information and Management from AUCA and a Master’s Degree in Development Studies from ULK, and is currently pursuing a Master’s in International Cooperation and Humanitarian Aid. He serves as an independent consultant in fundraising and resource mobilization, Secretary General and Co-Founder of Africa Partners Development, and a board member of PDI-Africa. His work focuses on empowering vulnerable women, children, and youth across Africa. ' },
+  { id: 'john', name: 'Mrs. Princia Koronado ', size: 2, h_size: 60, role: 'Co-Founder & Women’s Rights Advocate', location: 'Kenya', image: person2, bio: 'Mrs. Princia Koronado is a dedicated women’s rights advocate and educator with a Bachelor’s Degree in Teaching from the University of Bangui. She has served as a primary school teacher in conflict-affected areas and worked as a community health worker providing support to women and girls with limited access to health services. A survivor of intercommunal violence, she co-founded APDFE in 2019 to promote empowerment, protection, and dignity for women and children across Afric' },
   { id: 'grace', name: 'Grace M.', role: 'MHPSS Lead', location: 'Uganda', image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Clinical psychologist delivering trauma-informed mental health and psychosocial support to survivors.' },
-  { id: 'pierre', name: 'Pierre L.', role: 'Logistics Manager', location: 'DRC', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Manages supply chains, procurement and field logistics in high-risk humanitarian environments.' },
+  { id: 'pierre', name: 'Pierre L.', role: 'Logistics Manager', size: 2, location: 'DRC', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Manages supply chains, procurement and field logistics in high-risk humanitarian environments.' },
   { id: 'marie', name: 'Marie T.', role: 'Safe Spaces Coord.', location: 'Central African Rep.', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Establishes and manages women & girls safe spaces in IDP camps and conflict zones.' },
   { id: 'emmanuel', name: 'Emmanuel B.', role: 'Finance Officer', location: 'Republic of Congo', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Oversees financial compliance, transparency and donor reporting across regional projects.' },
   { id: 'chantal', name: 'Chantal R.', role: 'Health Program Lead', location: 'Cameroon', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Leads mobile clinics, maternal/reproductive health and primary healthcare in crisis settings.' },
@@ -80,18 +98,15 @@ export const About = () => {
       />
 
       {/* Hero */}
-      <section id="hero" className="bg-blue-900 py-24 text-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">A.P.D.F.E</h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto font-light leading-relaxed uppercase tracking-widest text-sm opacity-80">
-            Action Pour le Développement de la Femme et de l'Enfant
-          </p>
-        </div>
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-800/20 -skew-x-12 transform translate-x-20"></div>
-      </section>
+      <HeaderBanner
+        title="A.P.D.F.E"
+        subtitle="Action Pour le Développement de la Femme et de l'Enfant"
+        bgImage={bgAbout}
+        bgOverlay="bg-blue-900/80"
+      />
 
       {/* Who We Are – text aligned with HTML */}
-      <section id="who-we-are" className="py-24 max-w-7xl mx-auto px-4 border-b border-slate-100">
+      <section id="who-we-are" className="py-24 max-w-7xl overflow-hidden mx-auto px-4 border-b border-slate-100">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-10">
             <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest">Our Identity</div>
@@ -111,7 +126,7 @@ export const About = () => {
               </p>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative ">
             <div className="rounded-[3rem] overflow-hidden shadow-2xl h-[600px] relative z-10 bg-slate-100">
               <LazyImage
                 src={image1}
@@ -121,7 +136,7 @@ export const About = () => {
               />
             </div>
             <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-green-500 rounded-[2rem] -z-10 animate-pulse"></div>
-            <div className="absolute -top-8 -right-8 w-48 h-48 bg-blue-600 rounded-full -z-10 opacity-20"></div>
+            <div className="absolute -top-8 -right-6 w-48 h-48 bg-blue-600 rounded-full -z-10 opacity-20"></div>
           </div>
         </div>
       </section>
@@ -144,6 +159,45 @@ export const About = () => {
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all"></div>
           </div>
         </div>
+      </section>
+
+      {/* Regional Presence Promo */}
+      <section id="regional-presence-promo" className="py-24 max-w-7xl mx-auto px-4 border-b border-slate-100">
+        <Link to="/regional-presence" className="block relative bg-slate-900 rounded-[3.5rem] overflow-hidden group shadow-xl hover:shadow-2xl transition-all">
+          {/* Background image effect */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent z-10"></div>
+            <LazyImage
+              src={image1}
+              alt="Regional Network"
+              className="w-full h-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-1000"
+              containerClassName="w-full h-full absolute inset-0 right-0 left-auto w-1/2"
+            />
+          </div>
+
+          <div className="relative z-10 p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600/20 text-blue-400 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-blue-500/20">
+                <Globe size={14} /> Regional Network
+              </div>
+              <h3 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
+                Our Regional and Country Presence
+              </h3>
+              <p className="text-slate-300 text-lg leading-relaxed mb-6">
+                APDEFE operates across four African countries: <strong>Central African Republic, Republic of the Congo, Democratic Republic of the Congo, and Rwanda.</strong>
+              </p>
+              <p className="text-slate-400 leading-relaxed font-medium">
+                Our regional presence reflects both the diversity of the contexts in which we work and the strength of our shared commitment to transformative development through a decentralized yet unified model.
+              </p>
+            </div>
+
+            <div className="shrink-0">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-600 rounded-full flex items-center justify-center text-white group-hover:bg-white group-hover:text-blue-600 transition-colors shadow-lg shadow-blue-600/20">
+                <ArrowRight size={32} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </div>
+        </Link>
       </section>
 
       {/* Values – kept as is (matches HTML core values) */}
@@ -177,13 +231,12 @@ export const About = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {TEAM_MEMBERS.map((member, index) => (
+            {TEAM_MEMBERS.map((member) => (
               <div
                 key={member.id}
-                className={`bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all group ${index < 2 ? 'lg:col-span-2' : ''
-                  }`}
+                className={`bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all group lg:col-span-1 ${member.size === 2 ? 'lg:col-span-2' : ''}`}
               >
-                <div className={`overflow-hidden relative ${index < 2 ? 'h-[60vh]' : 'h-48'}`}>
+                <div className={`overflow-hidden relative ${member.h_size ? `h-[${member.h_size}vh]` : 'h-48'}`}>
                   <LazyImage
                     src={member.image}
                     alt={member.name}
@@ -208,41 +261,66 @@ export const About = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
-      {/* Profile modal – same design, new bios */}
+      {/* Profile modal – responsive */}
       {selectedMember && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-500 ease-out" onClick={() => setSelectedMember(null)} />
-          <div className="relative  max-w-7xl  bg-white rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in duration-500 ease-out">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-slate-900/70 backdrop-blur-md animate-in fade-in duration-300"
+            onClick={() => setSelectedMember(null)}
+          />
+
+          {/* Modal container — 90% of screen height */}
+          <div className="relative w-full sm:max-w-2xl md:max-w-4xl lg:max-w-6xl bg-white rounded-t-[2.5rem] sm:rounded-[2.5rem] shadow-2xl overflow-hidden animate-in slide-in-from-bottom-4 sm:zoom-in duration-300 h-[90dvh]">
+            {/* Close button */}
             <button
               onClick={() => setSelectedMember(null)}
-              className="absolute top-6 right-6 p-2 bg-slate-50 hover:bg-slate-900 hover:text-white rounded-full transition-all z-10"
+              className="absolute top-4 right-4 z-20 p-2 bg-white/80 backdrop-blur-md hover:bg-slate-900 hover:text-white rounded-full transition-all shadow-md"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="h-[80vh] overflow-hidden">
+
+            <div className="flex flex-col md:grid md:grid-cols-2 h-full">
+              {/* Image — 40% on mobile, full height on desktop */}
+              <div className="h-[40%] md:h-full overflow-hidden shrink-0">
                 <LazyImage
                   src={selectedMember.image}
                   alt={selectedMember.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                   containerClassName="w-full h-full"
                 />
               </div>
-              <div className="p-10 md:p-14 space-y-8 flex flex-col justify-center">
+
+              {/* Content — scrollable, 60% on mobile, full height on desktop */}
+              <div className="overflow-y-auto p-6 sm:p-10 md:p-12 flex flex-col gap-5 h-[60%] md:h-full">
                 <div>
-                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-2 block">{selectedMember.role}</span>
-                  <h2 className="text-3xl font-black text-slate-900 tracking-tight">{selectedMember.name}</h2>
+                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1 block">
+                    {selectedMember.role}
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
+                    {selectedMember.name}
+                  </h2>
                   <div className="flex items-center gap-2 text-slate-400 mt-2 font-bold uppercase text-[10px] tracking-widest">
                     <MapPin size={12} /> {selectedMember.location}
                   </div>
                 </div>
-                <p className="text-slate-600 leading-relaxed font-medium italic">"{selectedMember.bio}"</p>
-                <div className="flex gap-4 pt-4 border-t border-slate-100">
-                  <a href="#" className="p-3 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-xl transition-all"><Linkedin size={18} /></a>
-                  <a href="#" className="p-3 bg-slate-50 hover:bg-sky-500 hover:text-white rounded-xl transition-all"><Twitter size={18} /></a>
-                  <a href="mailto:staff@apdfe.org" className="p-3 bg-slate-50 hover:bg-slate-900 hover:text-white rounded-xl transition-all"><Mail size={18} /></a>
+
+                <p className="text-slate-600 text-sm leading-relaxed font-medium italic flex-1">
+                  "{selectedMember.bio}"
+                </p>
+
+                <div className="flex gap-3 pt-4 border-t border-slate-100">
+                  <a href="#" className="p-3 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-xl transition-all">
+                    <Linkedin size={16} />
+                  </a>
+                  <a href="#" className="p-3 bg-slate-50 hover:bg-sky-500 hover:text-white rounded-xl transition-all">
+                    <Twitter size={16} />
+                  </a>
+                  <a href="mailto:staff@apdfe.org" className="p-3 bg-slate-50 hover:bg-slate-900 hover:text-white rounded-xl transition-all">
+                    <Mail size={16} />
+                  </a>
                 </div>
               </div>
             </div>
@@ -291,7 +369,7 @@ export const About = () => {
                   { name: 'Central African Republic', projects: '25,000+ Reached – 8 Safe Spaces' },
                   { name: 'DR Congo (Eastern)', projects: '28,000+ Reached – 12 Communities' },
                   { name: 'Republic of Congo', projects: '10,000+ Reached – 5 Centers' },
-                  { name: 'Cameroon', projects: '5,000+ Reached – 4 Clinics' },
+
                   { name: 'Rwanda', projects: '2,000+ Reached – 4 Clinics' },
                 ].map((loc) => (
                   <div key={loc.name} className="space-y-2">
@@ -319,6 +397,6 @@ export const About = () => {
           </div>
         </div>
       </section>
-    </div>
+    </div >
   );
 };

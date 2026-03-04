@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { Mail, Heart, HandHelping, Globe, Share2, Calendar, CheckCircle, Sparkles } from 'lucide-react';
 import { useData } from '../context/DataContext';
+import { HeaderBanner } from '../components/HeaderBanner';
+import bgGetInvolved from '../assets/others/IMG_6412.jpg';
 
 export const GetInvolved = () => {
   const { addVolunteer } = useData();
@@ -32,7 +34,7 @@ export const GetInvolved = () => {
   const toggleInterest = (interest: string) => {
     setFormData(prev => ({
       ...prev,
-      interests: prev.interests.includes(interest) 
+      interests: prev.interests.includes(interest)
         ? prev.interests.filter(i => i !== interest)
         : [...prev.interests, interest]
     }));
@@ -41,19 +43,12 @@ export const GetInvolved = () => {
   return (
     <div className="animate-in fade-in duration-700 bg-white">
       {/* Hero */}
-      <section className="bg-blue-900 py-24 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-10">
-          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center md:text-left">
-          <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight tracking-tight">Join Our Global Community</h1>
-            <p className="text-xl text-blue-100 font-light leading-relaxed">
-              When you get involved with A.P.D.F.E, you become part of a passionate community of changemakers. Your involvement creates ripples of positive change.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeaderBanner
+        title="Join Our Global Community"
+        subtitle="When you get involved with A.P.D.F.E, you become part of a passionate community of changemakers. Your involvement creates ripples of positive change."
+        bgImage={bgGetInvolved}
+        bgOverlay="bg-blue-900/80"
+      />
 
       {/* Ways to Help Grid */}
       <section className="py-24 max-w-7xl mx-auto px-4">
@@ -92,7 +87,7 @@ export const GetInvolved = () => {
             <div className="p-12 lg:p-20 bg-slate-900 text-white relative overflow-hidden">
               <h3 className="text-4xl font-black mb-8 relative z-10 tracking-tight">Volunteer Application</h3>
               <p className="text-slate-400 mb-12 relative z-10 font-medium">Fill out the form below and our team will get back to you within 48 hours to discuss matching your skills with our needs.</p>
-              
+
               <div className="space-y-8 relative z-10">
                 <div className="flex gap-4">
                   <div className="p-3 bg-white/10 rounded-xl"><Heart size={20} className="text-green-500" /></div>
@@ -111,40 +106,40 @@ export const GetInvolved = () => {
               </div>
               <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
             </div>
-            
+
             <div className="p-12 lg:p-20 relative">
               {isSubmitted ? (
                 <div className="h-full flex flex-col items-center justify-center text-center space-y-6 animate-in zoom-in duration-500">
-                   <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-4">
-                     <CheckCircle size={48} />
-                   </div>
-                   <h3 className="text-3xl font-black text-slate-900">Application Received</h3>
-                   <p className="text-slate-500 font-medium max-w-sm">Thank you for your willingness to serve. A regional coordinator will review your profile and contact you soon.</p>
-                   <button onClick={() => setIsSubmitted(false)} className="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold">Apply Again</button>
+                  <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-4">
+                    <CheckCircle size={48} />
+                  </div>
+                  <h3 className="text-3xl font-black text-slate-900">Application Received</h3>
+                  <p className="text-slate-500 font-medium max-w-sm">Thank you for your willingness to serve. A regional coordinator will review your profile and contact you soon.</p>
+                  <button onClick={() => setIsSubmitted(false)} className="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold">Apply Again</button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-black uppercase text-slate-500 ml-1 tracking-widest">First Name *</label>
-                      <input required type="text" className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none font-bold" placeholder="John" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} />
+                      <input required type="text" className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none font-bold" placeholder="John" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} />
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-black uppercase text-slate-500 ml-1 tracking-widest">Last Name *</label>
-                      <input required type="text" className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none font-bold" placeholder="Doe" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} />
+                      <input required type="text" className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none font-bold" placeholder="Doe" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase text-slate-500 ml-1 tracking-widest">Email Address *</label>
-                    <input required type="email" className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none font-bold" placeholder="john@example.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                    <input required type="email" className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none font-bold" placeholder="john@example.com" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-black uppercase text-slate-500 ml-1 tracking-widest">Areas of Interest</label>
                     <div className="grid grid-cols-2 gap-3">
                       {['Education', 'Health', 'Development', 'Environment'].map((area) => (
-                        <button 
-                          key={area} 
-                          type="button" 
+                        <button
+                          key={area}
+                          type="button"
                           onClick={() => toggleInterest(area)}
                           className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all font-bold text-sm ${formData.interests.includes(area) ? 'border-blue-600 bg-blue-50 text-blue-600' : 'border-slate-100 bg-slate-50 text-slate-400'}`}
                         >
@@ -155,7 +150,7 @@ export const GetInvolved = () => {
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase text-slate-500 ml-1 tracking-widest">Tell us about yourself</label>
-                    <textarea rows={4} className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none font-medium" placeholder="Share your motivation..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}></textarea>
+                    <textarea rows={4} className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 outline-none font-medium" placeholder="Share your motivation..." value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}></textarea>
                   </div>
                   <button type="submit" className="w-full py-5 bg-blue-600 hover:bg-blue-700 hover:scale-[1.02] active:scale-95 text-white rounded-2xl font-black shadow-xl transition-all duration-300 flex items-center justify-center gap-3">
                     <Sparkles size={20} /> Submit Application

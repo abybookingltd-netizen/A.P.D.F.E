@@ -14,6 +14,8 @@ const About = React.lazy(() => import('./pages/About').then(module => ({ default
 const Programs = React.lazy(() => import('./pages/Programs').then(module => ({ default: module.Programs })));
 const ProgramDetails = React.lazy(() => import('./pages/ProgramDetails').then(module => ({ default: module.ProgramDetail })));
 const Impact = React.lazy(() => import('./pages/Impact').then(module => ({ default: module.Impact })));
+const StoryView = React.lazy(() => import('./pages/StoryView').then(module => ({ default: module.StoryView })));
+const RegionalPresence = React.lazy(() => import('./pages/RegionalPresence').then(module => ({ default: module.RegionalPresence })));
 const Events = React.lazy(() => import('./pages/Events').then(module => ({ default: module.Events })));
 const Publication = React.lazy(() => import('./pages/Publication').then(module => ({ default: module.Publication })));
 const PublicationDetails = React.lazy(() => import('./pages/PublicationDetails').then(module => ({ default: module.PublicationDetails })));
@@ -24,6 +26,7 @@ const Donate = React.lazy(() => import('./pages/Donate').then(module => ({ defau
 const ThankYou = React.lazy(() => import('./pages/ThankYou').then(module => ({ default: module.ThankYou })));
 const Login = React.lazy(() => import('./pages/Login').then(module => ({ default: module.Login })));
 const UnauthorizedPage = React.lazy(() => import('./pages/UnauthorizedPage').then(module => ({ default: module.UnauthorizedPage })));
+const NotFound = React.lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })));
 
 // Dashboard pages
 const DashboardOverview = React.lazy(() => import('./pages/dashboard/DashboardOverview').then(module => ({ default: module.DashboardOverview })));
@@ -53,6 +56,8 @@ const App: React.FC = () => {
                   <Route path="/programs" element={<Programs />} />
                   <Route path="/programs/:programId" element={<ProgramDetails />} />
                   <Route path="/impact" element={<Impact />} />
+                  <Route path="/regional-presence" element={<RegionalPresence />} />
+                  <Route path="/story/:storyId" element={<StoryView />} />
                   <Route path="/events" element={<Events />} />
                   <Route path="/publication" element={<Publication />} />
                   <Route path="/publication/:type/:id" element={<PublicationDetails />} />
@@ -142,7 +147,7 @@ const App: React.FC = () => {
                     }
                   />
 
-                  <Route path="*" element={<Home />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </Layout>

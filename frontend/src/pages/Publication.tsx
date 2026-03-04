@@ -1,51 +1,46 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, ArrowRight, Image as ImageIcon, Briefcase, FileText, CheckCircle, Search, Sparkles, Clock, MapPin } from 'lucide-react';
+import { Calendar, ArrowRight, Image as ImageIcon, Briefcase, FileText, CheckCircle, Search, Clock, MapPin } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { getImageUrl } from '../constants';
+import { HeaderBanner } from '../components/HeaderBanner';
+import bgPub from '../assets/others/IMG_7055.jpg';
 
 export const Publication = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const { news, projects, gallery } = useData();
 
-  const filteredNews = news.filter(n => 
+  const filteredNews = news.filter(n =>
     n.title.toLowerCase().includes(searchQuery.toLowerCase()) || n.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const filteredProjects = projects.filter(p => 
+  const filteredProjects = projects.filter(p =>
     p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.region.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const filteredGallery = gallery.filter(g => 
+  const filteredGallery = gallery.filter(g =>
     g.title.toLowerCase().includes(searchQuery.toLowerCase()) || g.subtitle.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="animate-in fade-in duration-700 bg-slate-50 min-h-screen">
       {/* Header Section */}
-      <section className="bg-slate-900 py-24 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <img src="https://images.unsplash.com/photo-1512314889357-e157c22f938d?q=80&w=2071&auto=format&fit=crop" alt="Background" className="w-full h-full object-cover" />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 backdrop-blur-md border border-blue-500/30 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6">
-            <Sparkles size={12} className="text-blue-400" /> Intelligence Hub
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">Publications</h1>
-          <p className="text-xl text-slate-400 font-light max-w-2xl leading-relaxed">
-            News, visual media, and detailed regional project tracking.
-          </p>
-        </div>
-      </section>
+      <HeaderBanner
+        title="Publications"
+        subtitle="News, visual media, and detailed regional project tracking."
+        badge="Intelligence Hub"
+        bgImage={bgPub}
+        bgOverlay="bg-slate-900/85"
+      />
 
       {/* Search Bar */}
       <section className="sticky top-[68px] z-40 bg-white border-b border-slate-200 shadow-sm py-4">
         <div className="max-w-7xl mx-auto px-6">
           <div className="relative max-w-xl mx-auto">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-            <input 
-              type="text" 
-              placeholder="Search news, projects, or images..." 
+            <input
+              type="text"
+              placeholder="Search news, projects, or images..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-bold outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
@@ -75,7 +70,7 @@ export const Publication = () => {
                   </div>
                   <h3 className="text-xl font-black text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">{item.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium line-clamp-3">{item.excerpt}</p>
-                  <Link 
+                  <Link
                     to={`/publication/news/${item.id}`}
                     className="flex items-center gap-2 text-blue-600 font-black text-xs uppercase tracking-widest"
                   >
@@ -127,7 +122,7 @@ export const Publication = () => {
                     </div>
                     <h3 className="text-3xl font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">{project.title}</h3>
                     <p className="text-slate-500 leading-relaxed font-medium text-lg">{project.description}</p>
-                    <Link 
+                    <Link
                       to={`/publication/project/${project.id}`}
                       className="inline-flex items-center gap-2 text-blue-600 font-black text-xs uppercase tracking-widest mt-4"
                     >
