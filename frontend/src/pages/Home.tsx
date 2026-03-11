@@ -38,7 +38,7 @@ const HERO_SLIDES = [
   },
   {
     image: heroImg1,
-    title: " SURVIVOR-LED TRANSFORMATIVE RESILIENCE",
+    title: " SURVIVOR-LED TRANSFORMATIVE Resilience",
     subtitle: "Turning pain into purpose. Our organization is led by survivors, for survivors, creating a legacy of resilience.",
     accent: "Resilience"
   }
