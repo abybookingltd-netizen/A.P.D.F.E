@@ -107,8 +107,8 @@ const Navbar = () => {
 
       <nav className="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
         {/* Top Bar */}
-        <div className={`bg-slate-900 text-white px-6 flex-col md:flex-row flex justify-between items-center text-xs transition-all duration-500 ease-in-out ${isScrolled ? 'h-7 opacity-80' : 'h-10 opacity-100'}`}>
-          <div className="flex gap-4 flex-wrap">
+        <div className={`bg-slate-900 text-white px-2 md:px-6 flex-col md:flex-row flex justify-between items-center text-xs gap-3  md:gap-0 transition-all duration-500 ease-in-out ${isScrolled ? 'min-h-7 opacity-80' : 'min-h-10 opacity-100'}`}>
+          <div className="flex gap-4 flex-wrap justify-center ">
             <a href="mailto:apdfe19@gmail.com" className="flex items-center gap-2 hover:text-green-400 transition-colors">
               <Mail size={12} /> <span className={isScrolled ? 'hidden sm:inline' : ''}>apdfe19@gmail.com</span>
             </a>
