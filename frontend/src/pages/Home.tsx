@@ -11,6 +11,7 @@ import { LazyImage } from '../components/LazyImage';
 import { useData } from '../context/DataContext';
 import { getImageUrl } from '../constants';
 import { SUCCESS_STORIES } from '../constants/stories';
+import { Partners } from '../components/Partners';
 
 import heroImg1 from '../assets/home/image1.jpeg';
 import heroImg2 from '../assets/home/image2.jpeg';
@@ -18,7 +19,7 @@ import heroImg3 from '../assets/home/image3.jpeg';
 
 import eduImg from '../assets/programs/education.jpeg';
 import healthcareImg from '../assets/programs/women.jpeg';
-import skillsImg from '../assets/programs/rights.jpeg';
+import skillsImg from '../assets/others/IMG_6748.jpg';
 import storyIntroImg from '../assets/others/IMG_6412.jpg';
 import impactBg from '../assets/others/IMG_6730.jpg';
 
@@ -193,8 +194,8 @@ export const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { title: "Education Initiative", desc: "Providing quality education and learning resources to children and adults in underserved communities.", icon: <GraduationCap size={24} />, color: "bg-blue-100 text-blue-600", img: eduImg },
-              { title: "Women's Health", desc: "Bringing essential maternal and reproductive health services through mobile clinics and health centers.", icon: <Activity size={24} />, color: "bg-green-100 text-green-600", img: healthcareImg },
-              { title: "Economic Empowerment", desc: "Vocational training and cooperative models that give survivors financial independence and dignity.", icon: <Users size={24} />, color: "bg-amber-100 text-amber-600", img: skillsImg }
+              { title: "Women's Health", desc: "Bringing essential maternal and reproductive health services through mobile clinics and health centers.", icon: <Activity size={24} />, color: "bg-green-100 text-green-600", img: skillsImg  },
+              { title: "Economic Empowerment", desc: "Vocational training and cooperative models that give survivors financial independence and dignity.", icon: <Users size={24} />, color: "bg-amber-100 text-amber-600", img: healthcareImg }
             ].map((card, idx) => (
               <div key={idx} className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
                 <div className="h-64 overflow-hidden relative">
@@ -255,6 +256,9 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* ── Partners ──────────────────────────────────────────────────── */}
+      <Partners />
 
       {/* ── Real Stories ──────────────────────────────────────────────── */}
       <section className="py-24 max-w-7xl mx-auto px-4">

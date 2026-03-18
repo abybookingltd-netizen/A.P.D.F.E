@@ -17,36 +17,33 @@ import {
 import { SEO } from '../components/SEO';
 import { LazyImage } from '../components/LazyImage';
 import { HeaderBanner } from '../components/HeaderBanner';
+import { Partners } from '../components/Partners';
 import bgAbout from '../assets/others/IMG_6409.jpg';
 
 // Images
 import image1 from '../assets/about.png'
 import person1 from '../assets/about/person1.png'
 import person2 from '../assets/about/person2.png'
+import cedrick from '../assets/team/cedrick.png'
+import wilton from '../assets/team/wilton.png'
+import herve from '../assets/team/herve.png'
+import emile from '../assets/team/emile.png'
+import onyimba from '../assets/team/onyimba.png'
+import mrsProjects from '../assets/team/mrs-projects.png'
+import felix from '../assets/team/felix.png'
+import pacifique from '../assets/team/pacifique.png'
 
 const TEAM_MEMBERS = [
   { id: 'amina', name: 'Mr. Adelithe MUGABO ', size: 2, h_size: 60, role: 'Founder and Vice President of Action Pour le Développement de la Femme et de l’Enfant (APDFE)', location: 'Rwanda', image: person1, bio: 'Mr. Adelithe Mugabo is a gender and child rights specialist with extensive experience in program implementation, research, and humanitarian response. He holds a Bachelor’s Degree in Information and Management from AUCA and a Master’s Degree in Development Studies from ULK, and is currently pursuing a Master’s in International Cooperation and Humanitarian Aid. He serves as an independent consultant in fundraising and resource mobilization, Secretary General and Co-Founder of Africa Partners Development, and a board member of PDI-Africa. His work focuses on empowering vulnerable women, children, and youth across Africa. ' },
   { id: 'john', name: 'Mrs. Princia Koronado ', size: 2, h_size: 60, role: 'Co-Founder & Women’s Rights Advocate', location: 'Kenya', image: person2, bio: 'Mrs. Princia Koronado is a dedicated women’s rights advocate and educator with a Bachelor’s Degree in Teaching from the University of Bangui. She has served as a primary school teacher in conflict-affected areas and worked as a community health worker providing support to women and girls with limited access to health services. A survivor of intercommunal violence, she co-founded APDFE in 2019 to promote empowerment, protection, and dignity for women and children across Afric' },
-  { id: 'grace', name: 'Grace M.', role: 'MHPSS Lead', location: 'Uganda', image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Clinical psychologist delivering trauma-informed mental health and psychosocial support to survivors.' },
-  { id: 'pierre', name: 'Pierre L.', role: 'Logistics Manager', size: 2, location: 'DRC', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Manages supply chains, procurement and field logistics in high-risk humanitarian environments.' },
-  { id: 'marie', name: 'Marie T.', role: 'Safe Spaces Coord.', location: 'Central African Rep.', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Establishes and manages women & girls safe spaces in IDP camps and conflict zones.' },
-  { id: 'emmanuel', name: 'Emmanuel B.', role: 'Finance Officer', location: 'Republic of Congo', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Oversees financial compliance, transparency and donor reporting across regional projects.' },
-  { id: 'chantal', name: 'Chantal R.', role: 'Health Program Lead', location: 'Cameroon', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Leads mobile clinics, maternal/reproductive health and primary healthcare in crisis settings.' },
-  { id: 'samuel', name: 'Samuel O.', role: 'Monitoring Officer', location: 'Tanzania', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop', bio: 'Responsible for real-time data collection, beneficiary tracking and impact monitoring.' },
-  { id: 'fatou', name: 'Fatou S.', role: 'Communications', location: 'Senegal', image: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?q=80&w=400&h=400&fit=crop', bio: 'Manages storytelling, advocacy campaigns, media relations and external communications.' },
-  { id: 'kwame', name: 'Kwame A.', role: 'M&E Specialist', location: 'Ghana', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&fit=crop', bio: 'Designs monitoring & evaluation frameworks and drives data-informed decision making.' },
-  { id: 'aisha', name: 'Aisha N.', role: 'Education Coord.', location: 'Nigeria', image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=400&h=400&fit=crop', bio: 'Coordinates literacy, foundational learning and girls’ education programs for displaced youth.' },
-  { id: 'hassan', name: 'Hassan D.', role: 'Agriculture Specialist', location: 'Mali', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Develops climate-smart agriculture and food security programs in Sahel & conflict zones.' },
-  { id: 'selam', name: 'Selam G.', role: 'Advocacy Lead', location: 'Ethiopia', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=400&h=400&fit=crop', bio: 'Leads policy advocacy and engagement with regional bodies on women’s rights & protection.' },
-  { id: 'abdi', name: 'Abdi M.', role: 'Programs Officer', location: 'Somalia', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&fit=crop', bio: 'Coordinates emergency relief, protection and community development in fragile contexts.' },
-  { id: 'ruth', name: 'Ruth K.', role: 'Protection Lead', location: 'South Sudan', image: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?q=80&w=400&h=400&fit=crop', bio: 'Specializes in child protection, GBV prevention and case management in emergencies.' },
-  { id: 'omar', name: 'Omar H.', role: 'Operations Manager', location: 'Sudan', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop', bio: 'Oversees field security, logistics planning and operational continuity in high-risk areas.' },
-  { id: 'lillian', name: 'Lillian Z.', role: 'HR & Training', location: 'Zambia', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&h=400&fit=crop', bio: 'Manages survivor-sensitive HR policies, staff training and regional capacity building.' },
-  { id: 'temba', name: 'Temba S.', role: 'Legal Advisor', location: 'Zimbabwe', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&h=400&fit=crop', bio: 'Provides legal support, policy analysis and survivor-centered advocacy on human rights.' },
-  { id: 'marta', name: 'Marta P.', role: 'Communities Lead', location: 'Mozambique', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop', bio: 'Drives grassroots mobilization, community dialogue and local peacebuilding initiatives.' },
-
-  // You asked to add one for Serge – example placement
-  { id: 'serge', name: 'Serge B.', role: 'Protection & Advocacy Officer', location: 'Burundi', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop', bio: 'Leads protection monitoring, community feedback mechanisms and advocacy in the Great Lakes region.' },
+  { id: 'cedrick', name: 'Mr. NDIKURIYO Cedrick', role: 'Regional Program Coordinator', location: 'Regional', image: cedrick, bio: 'Regional Program Coordinator actively engaged in program management.' },
+  { id: 'wilton', name: 'Mr. Wilton MAGARUKA Omar', role: 'Regional Program & Quality Development Director', location: 'Central African Republic', image: wilton, bio: 'Regional Program & Quality Development Director based in Central African Republic.' },
+  { id: 'herve', name: 'Mr. Mwizerwa Herve', role: 'Regional Finance Director', location: 'Rwanda', image: herve, bio: 'Regional Finance Director based in Rwanda.' },
+  { id: 'emile', name: 'Mr. MULIPA EMILE', role: 'Regional Data Management and Accountability Specialist', location: 'Central African Republic', image: emile, bio: 'Regional Data Management and Accountability Specialist based in Central African Republic.' },
+  { id: 'onyimba', name: 'Mrs. Rosine MURENGO ONYIMBA', role: 'Projects Coordinator', location: 'Central African Republic', image: onyimba, bio: 'Projects Coordinator in Central African Republic.' },
+  { id: 'mrs-projects', name: 'Mrs. Projects', role: 'Projects Coordinator', location: 'Eastern - DRC (North and South Kivu)', image: mrsProjects, bio: 'Projects Coordinator for Eastern - DRC (North and South Kivu).' },
+  { id: 'felix', name: 'Mr. MFIZI Felix Mutako', role: 'Projects Coordinator', location: 'Congo-Brazzaville', image: felix, bio: 'Projects Coordinator for Congo-Brazzaville.' },
+  { id: 'pacifique', name: 'Mr. BIGIRIMANA PACIFIQUE', role: 'Projects Coordinator', location: 'Rwanda', image: pacifique, bio: 'Projects Coordinator for Rwanda.' },
 ];
 
 const TIMELINE_EVENTS = [
@@ -354,6 +351,10 @@ export const About = () => {
         </div>
       </section>
 
+        {/* ── Partners ──────────────────────────────────────────────────── */}
+      <Partners />
+
+
       {/* Where We Work – updated to match HTML 4 countries + stats */}
       <section id="locations" className="py-24 bg-slate-900 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
@@ -397,6 +398,8 @@ export const About = () => {
           </div>
         </div>
       </section>
+
+    
     </div >
   );
 };

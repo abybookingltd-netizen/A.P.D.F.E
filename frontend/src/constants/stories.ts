@@ -1,5 +1,5 @@
 import img6377 from '../assets/others/IMG_6377.jpeg';
-import img6561 from '../assets/others/IMG_6561.jpg';
+import img6561 from '../assets/others/IMG_7067.jpg';
 import img6412 from '../assets/others/IMG_6412.jpg';
 import img6409 from '../assets/others/IMG_6409.jpg';
 
