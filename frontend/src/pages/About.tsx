@@ -17,7 +17,6 @@ import {
 import { SEO } from '../components/SEO';
 import { LazyImage } from '../components/LazyImage';
 import { HeaderBanner } from '../components/HeaderBanner';
-import { Partners } from '../components/Partners';
 import bgAbout from '../assets/others/IMG_6409.jpg';
 
 // Images
@@ -36,7 +35,7 @@ import pacifique from '../assets/team/pacifique.png'
 const TEAM_MEMBERS = [
   { id: 'amina', name: 'Mr. Adelithe MUGABO ', size: 2, h_size: 60, role: 'Founder and Vice President of Action Pour le Développement de la Femme et de l’Enfant (APDFE)', location: 'Rwanda', image: person1, bio: 'Mr. Adelithe Mugabo is a gender and child rights specialist with extensive experience in program implementation, research, and humanitarian response. He holds a Bachelor’s Degree in Information and Management from AUCA and a Master’s Degree in Development Studies from ULK, and is currently pursuing a Master’s in International Cooperation and Humanitarian Aid. He serves as an independent consultant in fundraising and resource mobilization, Secretary General and Co-Founder of Africa Partners Development, and a board member of PDI-Africa. His work focuses on empowering vulnerable women, children, and youth across Africa. ' },
   { id: 'john', name: 'Mrs. Princia Koronado ', size: 2, h_size: 60, role: 'Co-Founder & Women’s Rights Advocate', location: 'Kenya', image: person2, bio: 'Mrs. Princia Koronado is a dedicated women’s rights advocate and educator with a Bachelor’s Degree in Teaching from the University of Bangui. She has served as a primary school teacher in conflict-affected areas and worked as a community health worker providing support to women and girls with limited access to health services. A survivor of intercommunal violence, she co-founded APDFE in 2019 to promote empowerment, protection, and dignity for women and children across Afric' },
-  { id: 'cedrick', name: 'Mr. NDIKURIYO Cedrick', role: 'Regional Program Coordinator', location: 'Regional', image: cedrick, bio: "As the Regional Program Coordinator, Mr. NDIKURIYO Cedrick oversees the strategic implementation and scale-up of APDFE's core initiatives. He works closely with country-level coordinators to ensure that programs delivering health, education, and economic empowerment reach the most vulnerable communities effectively, maintaining a consistent standard of excellence across borders." },
+  { id: 'cedrick', name: 'Mr. NDIKURIYO Cedrick', h_size: 10, role: 'Regional Program Coordinator', location: 'Regional', image: cedrick, bio: "As the Regional Program Coordinator, Mr. NDIKURIYO Cedrick oversees the strategic implementation and scale-up of APDFE's core initiatives. He works closely with country-level coordinators to ensure that programs delivering health, education, and economic empowerment reach the most vulnerable communities effectively, maintaining a consistent standard of excellence across borders." },
   { id: 'wilton', name: 'Mr. Wilton MAGARUKA Omar', role: 'Regional Program & Quality Development Director', location: 'Central African Republic', image: wilton, bio: 'Based in the Central African Republic, Mr. Wilton MAGARUKA Omar leads the design, monitoring, and quality assurance of regional programs. He is dedicated to establishing robust programmatic frameworks that ensure survivor-led interventions are evidence-based, sustainable, and capable of creating long-lasting systemic change across Central Africa.' },
   { id: 'herve', name: 'Mr. Mwizerwa Herve', role: 'Regional Finance Director', location: 'Rwanda', image: herve, bio: 'Mr. Mwizerwa Herve brings extensive financial management expertise to his role as Regional Finance Director. Operating from Rwanda, he ensures strict financial compliance, transparent donor reporting, and efficient resource allocation, enabling APDFE to maximize its impact and build trust with international partners.' },
   { id: 'emile', name: 'Mr. MULIPA EMILE', role: 'Regional Data Management and Accountability Specialist', location: 'Central African Republic', image: emile, bio: 'Operating from the Central African Republic, Mr. MULIPA EMILE spearheads our data management and accountability frameworks. He champions real-time data collection and impact tracking, ensuring that our interventions are transparent, measurable, and highly responsive to the evolving needs of the communities we serve.' },
@@ -231,7 +230,12 @@ export const About = () => {
             {TEAM_MEMBERS.map((member) => (
               <div
                 key={member.id}
-                className={`bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all group lg:col-span-1 ${member.size === 2 ? 'lg:col-span-2' : ''}`}
+                className={`bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all group ${member.size === 2
+                    ? 'lg:col-span-2'
+                    : member.id === 'cedrick'
+                      ? 'col-span-full justify-self-center w-full max-w-[620px]'
+                      : 'lg:col-span-1'
+                  }`}
               >
                 <div className={`overflow-hidden relative ${member.h_size ? `h-[${member.h_size}vh]` : 'h-48'}`}>
                   <LazyImage
@@ -351,8 +355,6 @@ export const About = () => {
         </div>
       </section>
 
-        {/* ── Partners ──────────────────────────────────────────────────── */}
-      <Partners />
 
 
       {/* Where We Work – updated to match HTML 4 countries + stats */}
@@ -399,7 +401,7 @@ export const About = () => {
         </div>
       </section>
 
-    
+
     </div >
   );
 };

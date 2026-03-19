@@ -1,73 +1,79 @@
 import { LazyImage } from './LazyImage';
 
-// External Partners
 import partnerEx3 from '../assets/partners/external/partner3.png';
 import partnerEx4 from '../assets/partners/external/parnter4.png';
 import partnerEx5 from '../assets/partners/external/partner5.png';
 import partnerEx6 from '../assets/partners/external/partner6.png';
 import partnerEx7 from '../assets/partners/external/partner7.png';
-
-// Internal Partners
 import partnerIn1 from '../assets/partners/internal/partner1.png';
 import partnerIn2 from '../assets/partners/internal/partner2.png';
 
-const EXTERNAL_PARTNERS = [
-  { id: 'ex3', src: partnerEx3, alt: 'External Partner 3' },
-  { id: 'ex4', src: partnerEx4, alt: 'External Partner 4' },
-  { id: 'ex5', src: partnerEx5, alt: 'External Partner 5' },
-  { id: 'ex6', src: partnerEx6, alt: 'External Partner 6' },
-  { id: 'ex7', src: partnerEx7, alt: 'External Partner 7' },
-];
-
-const INTERNAL_PARTNERS = [
-  { id: 'in1', src: partnerIn1, alt: 'Internal Partner 1' },
-  { id: 'in2', src: partnerIn2, alt: 'Internal Partner 2' },
+const PARTNERS = [
+  { id: 'ex3', src: partnerEx3, alt: 'Partner 3' },
+  { id: 'ex4', src: partnerEx4, alt: 'Partner 4' },
+  { id: 'ex5', src: partnerEx5, alt: 'Partner 5' },
+  { id: 'ex6', src: partnerEx6, alt: 'Partner 6' },
+  { id: 'ex7', src: partnerEx7, alt: 'Partner 7' },
+  { id: 'in1', src: partnerIn1, alt: 'Partner 1' },
+  { id: 'in2', src: partnerIn2, alt: 'Partner 2' },
 ];
 
 export const Partners = () => {
   return (
-    <section className="py-24 bg-white border-b border-slate-100 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-3 block">Our Network</span>
-          <h2 className="text-4xl font-black text-slate-900 tracking-tight">Trusted Partners</h2>
-          <p className="mt-4 text-slate-500 font-medium">Collaborating to drive impactful change across Central Africa.</p>
+    <div className="py-12 bg-slate-900 overflow-hidden w-full">
+      <style>
+        {`
+          @keyframes infinite-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+          }
+          .animate-infinite-scroll {
+            animation: infinite-scroll 25s linear infinite;
+          }
+          .pause-on-hover:hover .animate-infinite-scroll {
+            animation-play-state: paused;
+          }
+        `}
+      </style>
+      <div className="max-w-7xl mx-auto px-4 relative">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl font-black text-white tracking-tight uppercase">Our Trusted Partners</h2>
         </div>
-
-        {/* Global/External Partners */}
-        <div className="mb-20">
-          <h3 className="text-xl font-bold text-slate-800 mb-8 border-l-4 border-blue-500 pl-4 uppercase tracking-widest">External Partners</h3>
-          <div className="flex flex-wrap items-center justify-center gap-12 sm:gap-16">
-            {EXTERNAL_PARTNERS.map((partner) => (
-              <div key={partner.id} className="w-32 h-32 md:w-40 md:h-40 flex items-center justify-center grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300">
+        
+        {/* Infinite Scroll Wrapper */}
+        <div 
+          className="flex overflow-hidden w-full relative pause-on-hover py-4" 
+          style={{ WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }}
+        >
+          {/* Scroll Track 1 */}
+          <div className="flex gap-10 sm:gap-16 pr-10 sm:pr-16 shrink-0 animate-infinite-scroll">
+            {PARTNERS.map((partner) => (
+              <div key={`t1-${partner.id}`} className="w-24 h-24 md:w-32 md:h-32 flex shrink-0 items-center justify-center transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <LazyImage
                   src={partner.src}
                   alt={partner.alt}
                   className="max-w-full max-h-full object-contain"
-                  containerClassName="w-full h-full flex items-center justify-center p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm"
+                  containerClassName="w-full h-full flex items-center justify-center p-3 bg-white rounded-xl shadow-sm border border-slate-50"
                 />
               </div>
             ))}
           </div>
-        </div>
 
-        {/* Internal/Local Partners */}
-        <div>
-          <h3 className="text-xl font-bold text-slate-800 mb-8 border-l-4 border-green-500 pl-4 uppercase tracking-widest">Internal Partners</h3>
-          <div className="flex flex-wrap items-center justify-center gap-12 sm:gap-16">
-            {INTERNAL_PARTNERS.map((partner) => (
-              <div key={partner.id} className="w-32 h-32 md:w-40 md:h-40 flex items-center justify-center grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300">
+          {/* Scroll Track 2 (Duplicate) */}
+          <div className="flex gap-10 sm:gap-16 pr-10 sm:pr-16 shrink-0 animate-infinite-scroll" aria-hidden="true">
+            {PARTNERS.map((partner) => (
+              <div key={`t2-${partner.id}`} className="w-24 h-24 md:w-32 md:h-32 flex shrink-0 items-center justify-center transition-transform duration-300 hover:scale-105 cursor-pointer">
                 <LazyImage
                   src={partner.src}
                   alt={partner.alt}
                   className="max-w-full max-h-full object-contain"
-                  containerClassName="w-full h-full flex items-center justify-center p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm"
+                  containerClassName="w-full h-full flex items-center justify-center p-3 bg-white rounded-xl shadow-sm border border-slate-50"
                 />
               </div>
             ))}
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

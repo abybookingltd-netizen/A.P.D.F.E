@@ -4,6 +4,7 @@ import { Mail, Phone, Menu, X, Facebook, Instagram, Heart, User, ChevronDown } f
 import { useAuth } from '../context/AuthContext';
 import { useData } from '../context/DataContext';
 import { LoadingScreen } from './LoadingScreen';
+import { Partners } from './Partners';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -296,7 +297,9 @@ const Navbar = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-20 pb-10">
+    <>
+      <Partners />
+      <footer className="bg-slate-900 text-slate-300 pt-20 pb-10">
       <div className="mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="space-y-6">
           <div className="flex items-center gap-3">
@@ -352,6 +355,7 @@ const Footer = () => {
         </p>
       </div>
     </footer>
+    </>
   );
 };
 

@@ -11,7 +11,6 @@ import { LazyImage } from '../components/LazyImage';
 import { useData } from '../context/DataContext';
 import { getImageUrl } from '../constants';
 import { SUCCESS_STORIES } from '../constants/stories';
-import { Partners } from '../components/Partners';
 
 import heroImg1 from '../assets/home/image1.jpeg';
 import heroImg2 from '../assets/home/image2.jpeg';
@@ -256,9 +255,6 @@ export const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* ── Partners ──────────────────────────────────────────────────── */}
-      <Partners />
 
       {/* ── Real Stories ──────────────────────────────────────────────── */}
       <section className="py-24 max-w-7xl mx-auto px-4">
