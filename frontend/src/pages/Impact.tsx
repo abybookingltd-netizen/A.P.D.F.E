@@ -31,6 +31,22 @@ import img7060 from '../assets/others/IMG_7060.jpg';
 import img7067 from '../assets/others/IMG_7067.jpg';
 import img70602 from '../assets/others/IMG_70602.jpeg';
 
+import img6772 from '../assets/gallery/IMG_6772.HEIC';
+import img6775 from '../assets/gallery/IMG_6775.HEIC';
+import img6788 from '../assets/gallery/IMG_6788.HEIC';
+import img6790 from '../assets/gallery/IMG_6790.HEIC';
+import img6794 from '../assets/gallery/IMG_6794.HEIC';
+import img6796 from '../assets/gallery/IMG_6796.HEIC';
+import img6803 from '../assets/gallery/IMG_6803.HEIC';
+import img6810 from '../assets/gallery/IMG_6810.HEIC';
+import img6811 from '../assets/gallery/IMG_6811.HEIC';
+import img6830 from '../assets/gallery/IMG_6830.HEIC';
+import img6984 from '../assets/gallery/IMG_6984.HEIC';
+import img6986 from '../assets/gallery/IMG_6986.HEIC';
+import img6991 from '../assets/gallery/IMG_6991.HEIC';
+import img6993 from '../assets/gallery/IMG_6993.HEIC';
+import img6995 from '../assets/gallery/IMG_6995.HEIC';
+
 export const Impact = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -53,7 +69,22 @@ export const Impact = () => {
     img7055,
     img7060,
     img7067,
-    img70602
+    img70602,
+    img6772,
+    img6775,
+    img6788,
+    img6790,
+    img6794,
+    img6796,
+    img6803,
+    img6810,
+    img6811,
+    img6830,
+    img6984,
+    img6986,
+    img6991,
+    img6993,
+    img6995
   ];
 
   const nextImage = (e: React.MouseEvent) => {
