@@ -31,21 +31,21 @@ import img7060 from '../assets/others/IMG_7060.jpg';
 import img7067 from '../assets/others/IMG_7067.jpg';
 import img70602 from '../assets/others/IMG_70602.jpeg';
 
-import img6772 from '../assets/gallery/IMG_6772.HEIC';
-import img6775 from '../assets/gallery/IMG_6775.HEIC';
-import img6788 from '../assets/gallery/IMG_6788.HEIC';
-import img6790 from '../assets/gallery/IMG_6790.HEIC';
-import img6794 from '../assets/gallery/IMG_6794.HEIC';
-import img6796 from '../assets/gallery/IMG_6796.HEIC';
-import img6803 from '../assets/gallery/IMG_6803.HEIC';
-import img6810 from '../assets/gallery/IMG_6810.HEIC';
-import img6811 from '../assets/gallery/IMG_6811.HEIC';
-import img6830 from '../assets/gallery/IMG_6830.HEIC';
-import img6984 from '../assets/gallery/IMG_6984.HEIC';
-import img6986 from '../assets/gallery/IMG_6986.HEIC';
-import img6991 from '../assets/gallery/IMG_6991.HEIC';
-import img6993 from '../assets/gallery/IMG_6993.HEIC';
-import img6995 from '../assets/gallery/IMG_6995.HEIC';
+import img6772 from '../assets/gallery/IMG_6772.jpg';
+import img6775 from '../assets/gallery/IMG_6775.jpg';
+import img6788 from '../assets/gallery/IMG_6788.jpg';
+import img6790 from '../assets/gallery/IMG_6790.jpg';
+import img6794 from '../assets/gallery/IMG_6794.jpg';
+import img6796 from '../assets/gallery/IMG_6796.jpg';
+import img6803 from '../assets/gallery/IMG_6803.jpg';
+import img6810 from '../assets/gallery/IMG_6810.jpg';
+import img6811 from '../assets/gallery/IMG_6811.jpg';
+import img6830 from '../assets/gallery/IMG_6830.jpg';
+import img6984 from '../assets/gallery/IMG_6984.jpg';
+import img6986 from '../assets/gallery/IMG_6986.jpg';
+import img6991 from '../assets/gallery/IMG_6991.jpg';
+import img6993 from '../assets/gallery/IMG_6993.jpg';
+import img6995 from '../assets/gallery/IMG_6995.jpg';
 
 export const Impact = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
