@@ -9,6 +9,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  assetsInclude: ['**/*.HEIC', '**/*.heic'],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
