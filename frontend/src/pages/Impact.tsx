@@ -11,81 +11,25 @@ import { HeaderBanner } from '../components/HeaderBanner';
 // Using IMG_6913.jpg for impact
 import bgImpact from '../assets/others/IMG_6913.jpg';
 
-import img6561 from '../assets/others/IMG_6561.jpg';
-import img6563 from '../assets/others/IMG_6563.jpg';
-import img6680 from '../assets/others/IMG_6680.jpg';
-import img6683 from '../assets/others/IMG_6683.jpg';
-import img6723 from '../assets/others/IMG_6723.jpg';
-import img6725 from '../assets/others/IMG_6725.jpg';
-import img6730 from '../assets/others/IMG_6730.jpg';
-import img6740 from '../assets/others/IMG_6740.jpg';
-import img6748 from '../assets/others/IMG_6748.jpg';
-import img6898 from '../assets/others/IMG_6898.jpg';
-import img6913 from '../assets/others/IMG_6913.jpg';
-import img6919 from '../assets/others/IMG_6919.jpg';
-import img6924 from '../assets/others/IMG_6924.jpg';
-import img7044 from '../assets/others/IMG_7044.jpg';
-import img7051 from '../assets/others/IMG_7051.jpg';
-import img7055 from '../assets/others/IMG_7055.jpg';
-import img7060 from '../assets/others/IMG_7060.jpg';
-import img7067 from '../assets/others/IMG_7067.jpg';
-import img70602 from '../assets/others/IMG_70602.jpeg';
+// Dynamically load all images from gallery (including addons) and others
+const galleryImagesMap = import.meta.glob('../assets/gallery/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
 
-import img6772 from '../assets/gallery/IMG_6772.jpg';
-import img6775 from '../assets/gallery/IMG_6775.jpg';
-import img6788 from '../assets/gallery/IMG_6788.jpg';
-import img6790 from '../assets/gallery/IMG_6790.jpg';
-import img6794 from '../assets/gallery/IMG_6794.jpg';
-import img6796 from '../assets/gallery/IMG_6796.jpg';
-import img6803 from '../assets/gallery/IMG_6803.jpg';
-import img6810 from '../assets/gallery/IMG_6810.jpg';
-import img6811 from '../assets/gallery/IMG_6811.jpg';
-import img6830 from '../assets/gallery/IMG_6830.jpg';
-import img6984 from '../assets/gallery/IMG_6984.jpg';
-import img6986 from '../assets/gallery/IMG_6986.jpg';
-import img6991 from '../assets/gallery/IMG_6991.jpg';
-import img6993 from '../assets/gallery/IMG_6993.jpg';
-import img6995 from '../assets/gallery/IMG_6995.jpg';
+const othersImagesMap = import.meta.glob('../assets/others/*.{jpg,jpeg,png,JPG,JPEG,PNG}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
+
+// Combine all images for the gallery
+const galleryImages = [
+  ...Object.values(othersImagesMap),
+  ...Object.values(galleryImagesMap),
+];
 
 export const Impact = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-
-  const galleryImages = [
-    img6561,
-    img6563,
-    img6680,
-    img6683,
-    img6723,
-    img6725,
-    img6730,
-    img6740,
-    img6748,
-    img6898,
-    img6913,
-    img6919,
-    img6924,
-    img7044,
-    img7051,
-    img7055,
-    img7060,
-    img7067,
-    img70602,
-    img6772,
-    img6775,
-    img6788,
-    img6790,
-    img6794,
-    img6796,
-    img6803,
-    img6810,
-    img6811,
-    img6830,
-    img6984,
-    img6986,
-    img6991,
-    img6993,
-    img6995
-  ];
 
   const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
