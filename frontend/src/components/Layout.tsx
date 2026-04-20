@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, Phone, Menu, X, Facebook, Instagram, Heart, User, ChevronDown } from 'lucide-react';
+import { Mail, Phone, Menu, X, Twitter, Instagram, Linkedin, Youtube, Heart, User, ChevronDown } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useData } from '../context/DataContext';
 import { LoadingScreen } from './LoadingScreen';
@@ -118,8 +118,10 @@ const Navbar = () => {
             </a>
           </div>
           <div className="flex gap-4 items-center ">
-            <Facebook size={14} className="cursor-pointer hover:text-blue-400" />
-            <Instagram size={14} className="cursor-pointer hover:text-pink-400" />
+            <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors"><Twitter size={14} /></a>
+            <a href="https://www.instagram.com/apdfengo/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-400 transition-colors"><Instagram size={14} /></a>
+            <a href="https://www.linkedin.com/in/apdfe-ngo-80b382379" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors"><Linkedin size={14} /></a>
+            <a href="https://www.youtube.com/@APDFENGO" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors"><Youtube size={14} /></a>
             {currentUser ? (
               <Link to="/dashboard" className="flex items-center gap-2 text-blue-400 font-black hover:text-white transition-colors ml-4 uppercase tracking-tighter">
                 <User size={12} /> Dashboard
@@ -311,8 +313,10 @@ const Footer = () => {
             Empowering women and children across Central Africa through survivor-led initiatives in health, education, and peace-building.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="p-2.5 bg-slate-800 rounded-xl hover:bg-blue-600 transition-colors"><Facebook size={18} /></a>
-            <a href="#" className="p-2.5 bg-slate-800 rounded-xl hover:bg-pink-500 transition-colors"><Instagram size={18} /></a>
+            <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-black transition-colors" title="Follow us on X"><Twitter size={18} /></a>
+            <a href="https://www.instagram.com/apdfengo/" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-pink-500 transition-colors" title="Follow us on Instagram"><Instagram size={18} /></a>
+            <a href="https://www.linkedin.com/in/apdfe-ngo-80b382379" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-blue-600 transition-colors" title="Follow us on LinkedIn"><Linkedin size={18} /></a>
+            <a href="https://www.youtube.com/@APDFENGO" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-red-600 transition-colors" title="Subscribe to our YouTube"><Youtube size={18} /></a>
           </div>
         </div>
 

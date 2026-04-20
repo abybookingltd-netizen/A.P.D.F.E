@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Sparkles, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
 import { HeaderBanner } from '../components/HeaderBanner';
 import bgContact from '../assets/others/IMG_7051.jpg';
 
@@ -68,6 +68,21 @@ export const Contact = () => {
                 <div>
                   <h4 className="font-black text-slate-900 mb-1 text-lg">Operational Hours</h4>
                   <p className="text-slate-500 font-bold leading-relaxed text-sm uppercase tracking-tighter">Mon – Fri: 08:00 – 17:00 (CAT)<br />Sat: 09:00 – 13:00 (CAT)</p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 p-6 bg-blue-50 rounded-[2rem] border border-blue-100 transition-all hover:bg-white hover:shadow-xl">
+                <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white flex-shrink-0">
+                  <Twitter size={28} />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-black text-slate-900 mb-2 text-lg">Social Connect</h4>
+                  <div className="flex gap-4">
+                    <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-blue-400 transition-colors shadow-sm"><Twitter size={20} /></a>
+                    <a href="https://www.instagram.com/apdfengo/" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-pink-500 transition-colors shadow-sm"><Instagram size={20} /></a>
+                    <a href="https://www.linkedin.com/in/apdfe-ngo-80b382379" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-blue-600 transition-colors shadow-sm"><Linkedin size={20} /></a>
+                    <a href="https://www.youtube.com/@APDFENGO" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-red-600 transition-colors shadow-sm"><Youtube size={20} /></a>
+                  </div>
                 </div>
               </div>
             </div>
