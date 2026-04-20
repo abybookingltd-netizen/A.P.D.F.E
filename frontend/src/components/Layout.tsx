@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, Phone, Menu, X, Twitter, Instagram, Linkedin, Youtube, Heart, User, ChevronDown } from 'lucide-react';
+import { Mail, Phone, Menu, X, Instagram, Linkedin, Youtube, Heart, User, ChevronDown, Facebook } from 'lucide-react';
+
+// X (formerly Twitter) logo — lucide ships no official X icon
+const XLogo = ({ size = 14 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-label="X (formerly Twitter)">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.402 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z" />
+  </svg>
+);
 import { useAuth } from '../context/AuthContext';
 import { useData } from '../context/DataContext';
 import { LoadingScreen } from './LoadingScreen';
@@ -118,7 +125,8 @@ const Navbar = () => {
             </a>
           </div>
           <div className="flex gap-4 items-center ">
-            <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors"><Twitter size={14} /></a>
+            <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="Follow us on X"><XLogo size={14} /></a>
+            <a href="https://www.facebook.com/share/p/17VKx83bic/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors" title="Follow us on Facebook"><Facebook size={14} /></a>
             <a href="https://www.instagram.com/apdfengo/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-400 transition-colors"><Instagram size={14} /></a>
             <a href="https://www.linkedin.com/in/apdfe-ngo-80b382379" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors"><Linkedin size={14} /></a>
             <a href="https://www.youtube.com/@APDFENGO" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors"><Youtube size={14} /></a>
@@ -313,7 +321,8 @@ const Footer = () => {
             Empowering women and children across Central Africa through survivor-led initiatives in health, education, and peace-building.
           </p>
           <div className="flex gap-4">
-            <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-black transition-colors" title="Follow us on X"><Twitter size={18} /></a>
+            <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-black transition-colors" title="Follow us on X"><XLogo size={18} /></a>
+            <a href="https://www.facebook.com/share/p/17VKx83bic/" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-blue-600 transition-colors" title="Follow us on Facebook"><Facebook size={18} /></a>
             <a href="https://www.instagram.com/apdfengo/" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-pink-500 transition-colors" title="Follow us on Instagram"><Instagram size={18} /></a>
             <a href="https://www.linkedin.com/in/apdfe-ngo-80b382379" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-blue-600 transition-colors" title="Follow us on LinkedIn"><Linkedin size={18} /></a>
             <a href="https://www.youtube.com/@APDFENGO" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 rounded-xl hover:bg-red-600 transition-colors" title="Subscribe to our YouTube"><Youtube size={18} /></a>

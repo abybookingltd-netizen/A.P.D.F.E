@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Sparkles, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Sparkles, Instagram, Linkedin, Youtube, Facebook } from 'lucide-react';
 import { HeaderBanner } from '../components/HeaderBanner';
 import bgContact from '../assets/others/IMG_7051.jpg';
+
+// X (formerly Twitter) logo — lucide ships no official X icon
+const XLogo = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-label="X (formerly Twitter)">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.402 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z" />
+  </svg>
+);
 
 export const Contact = () => {
   const [isSent, setIsSent] = useState(false);
@@ -72,13 +79,14 @@ export const Contact = () => {
               </div>
 
               <div className="flex gap-6 p-6 bg-blue-50 rounded-[2rem] border border-blue-100 transition-all hover:bg-white hover:shadow-xl">
-                <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white flex-shrink-0">
-                  <Twitter size={28} />
+                <div className="w-14 h-14 bg-black rounded-2xl flex items-center justify-center text-white flex-shrink-0">
+                  <XLogo size={28} />
                 </div>
                 <div className="flex-1">
                   <h4 className="font-black text-slate-900 mb-2 text-lg">Social Connect</h4>
                   <div className="flex gap-4">
-                    <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-blue-400 transition-colors shadow-sm"><Twitter size={20} /></a>
+                    <a href="https://x.com/apdfengo" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-white hover:bg-black transition-colors shadow-sm" title="X (formerly Twitter)"><XLogo size={20} /></a>
+                    <a href="https://www.facebook.com/share/p/17VKx83bic/" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-white hover:bg-blue-600 transition-colors shadow-sm" title="Facebook"><Facebook size={20} /></a>
                     <a href="https://www.instagram.com/apdfengo/" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-pink-500 transition-colors shadow-sm"><Instagram size={20} /></a>
                     <a href="https://www.linkedin.com/in/apdfe-ngo-80b382379" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-blue-600 transition-colors shadow-sm"><Linkedin size={20} /></a>
                     <a href="https://www.youtube.com/@APDFENGO" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-900 hover:text-red-600 transition-colors shadow-sm"><Youtube size={20} /></a>
